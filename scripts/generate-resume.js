@@ -108,9 +108,9 @@ function generateResumePDF() {
     Buffer.from(trailer, 'utf8')
   ]);
 
-  fs.mkdirSync(path.join(__dirname, 'public', 'assets'), { recursive: true });
-  fs.writeFileSync(path.join(__dirname, 'public', 'assets', 'Hari_Haran_A_Resume.pdf'), finalPDF);
-  fs.writeFileSync(path.join(__dirname, 'public', 'Hari_Haran_A_Resume.pdf'), finalPDF);
+  fs.mkdirSync(path.join(__dirname, '..', 'public', 'assets'), { recursive: true });
+  fs.writeFileSync(path.join(__dirname, '..', 'public', 'assets', 'Hari_Haran_A_Resume.pdf'), finalPDF);
+  fs.writeFileSync(path.join(__dirname, '..', 'public', 'Hari_Haran_A_Resume.pdf'), finalPDF);
   console.log("Generated Hari_Haran_A_Resume.pdf successfully.");
 }
 
