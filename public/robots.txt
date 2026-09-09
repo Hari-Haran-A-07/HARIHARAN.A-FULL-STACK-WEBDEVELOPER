@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://hari-haran.dev/sitemap.xml

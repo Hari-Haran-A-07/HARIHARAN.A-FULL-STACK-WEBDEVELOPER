@@ -1,0 +1,118 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-inter: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
+  background-color: #000000;
+}
+
+body {
+  color: #F5F5F5;
+  background: #000000;
+  font-family: var(--font-inter);
+  overflow-x: hidden;
+  selection-background-color: #A100FF;
+  selection-color: #FFFFFF;
+}
+
+::selection {
+  background-color: #A100FF;
+  color: #FFFFFF;
+}
+
+/* Custom subtle scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0A0A0A;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #262626;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #7C3AED;
+}
+
+/* Subtle grid overlay */
+.bg-grid {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+}
+
+/* Radial purple glow */
+.purple-radial-glow {
+  background: radial-gradient(circle at 50% 0%, rgba(161, 0, 255, 0.12) 0%, rgba(0, 0, 0, 0) 70%);
+}
+
+.purple-ambient-sphere {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(161, 0, 255, 0.08) 0%, rgba(124, 58, 237, 0.02) 50%, rgba(0,0,0,0) 70%);
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+/* Sharp enterprise borders */
+.border-enterprise {
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.border-enterprise-hover {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.border-enterprise-hover:hover {
+  border-color: rgba(161, 0, 255, 0.5);
+  box-shadow: 0 0 25px rgba(161, 0, 255, 0.12);
+}
+
+/* Glass panel */
+.glass-panel {
+  background: rgba(10, 10, 10, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Editorial typography display */
+.text-editorial-clamp {
+  font-size: clamp(2.5rem, 7vw, 7rem);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  font-weight: 800;
+}
+
+.text-title-clamp {
+  font-size: clamp(1.8rem, 4vw, 3.5rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

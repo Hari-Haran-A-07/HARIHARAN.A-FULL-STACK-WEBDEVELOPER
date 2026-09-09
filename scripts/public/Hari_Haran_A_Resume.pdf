@@ -1,0 +1,101 @@
+%PDF-1.4
+1 0 obj
+<< /Type /Catalog /Pages 2 0 R >>
+endobj
+2 0 obj
+<< /Type /Pages /Kids [3 0 R] /Count 1 >>
+endobj
+3 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595.28 841.89] /Contents 4 0 R /Resources << /Font << /F1 5 0 R /F2 6 0 R >> >> >>
+endobj
+4 0 obj
+<< /Length 3806 >>
+stream
+BT
+/F1 10 Tf
+50 780 Td
+13.5 TL
+/F2 14 Tf (HARI HARAN A) Tj
+/F1 9 Tf T*
+(Full Stack Developer | Software Engineer | Data Analyst | Graphic Designer) Tj T*
+(Email: suryahari971@gmail.com | LinkedIn: linkedin.com/in/ahari-haran07 | GitHub: github.com/Hari-Haran-A-07) Tj T*
+(Location: Dindigul, Tamil Nadu, India) Tj T*
+(------------------------------------------------------------------------------------------------------------------------) Tj T*
+/F2 10.5 Tf (PROFESSIONAL SUMMARY) Tj
+/F1 9 Tf T*
+(Full Stack Developer and Software Engineer with proven enterprise experience architecting) Tj T*
+(high-throughput microservices, low-latency React interfaces, distributed databases, and responsive) Tj T*
+(digital products. Specialized in Java, Spring Boot, Python, React.js, and API Gateway architectures.) Tj T*
+() Tj T*
+/F2 10.5 Tf (PROFESSIONAL EXPERIENCE) Tj
+/F1 9 Tf T*
+(1. TECHZON WIDE PVT. LTD. - Bangalore, India \(Jun 2026 - Present\)) Tj T*
+(   Role: Full Stack Developer & Team Lead) Tj T*
+(   * Architected enterprise microservices in Java and Spring Boot with React.js frontends.) Tj T*
+(   * Engineered high-throughput REST APIs and async pipelines, reducing latency by 32%.) Tj T*
+(   * Configured API Gateway, authentication filters, and monitoring, ensuring 99.9% uptime.) Tj T*
+(   * Led bi-weekly Agile sprints, technical specifications, and API schemas.) Tj T*
+() Tj T*
+(2. KIEYVERSE - Remote \(Feb 2026 - Jul 2026\)) Tj T*
+(   Role: Full Stack Web Developer Intern) Tj T*
+(   * Built reusable mobile-first React.js components using JavaScript ES6+, HTML5, CSS3.) Tj T*
+(   * Reduced page-load latency by 28% and improved engagement metrics by 22%.) Tj T*
+(   * Documented frontend architecture standards and component design guidelines.) Tj T*
+() Tj T*
+(3. DOT COM INFOWAY - Madurai, India \(2025\)) Tj T*
+(   Role: Web Development Intern - React / Full Stack) Tj T*
+(   * Developed modular React user interfaces connected to backend REST APIs.) Tj T*
+(   * Improved asynchronous data rendering speed by 25% across complex data tables.) Tj T*
+(   * Resolved 40+ software defects and authored automated unit tests.) Tj T*
+() Tj T*
+(4. MITA IT AUTOMATIONS PVT. LTD. - Dindigul, India \(2024\)) Tj T*
+(   Role: UI/UX & Web Development Intern) Tj T*
+(   * Designed user journeys, interactive wireframes, and responsive prototypes.) Tj T*
+(   * Accelerated prototype-to-production implementation speed by 30%.) Tj T*
+() Tj T*
+/F2 10.5 Tf (EDUCATION) Tj
+/F1 9 Tf T*
+(* SSM INSTITUTE OF ENGINEERING AND TECHNOLOGY - Dindigul, India \(2022 - 2026\)) Tj T*
+(  B.Tech in Computer Science and Business Systems | CGPA: 8.6 / 10) Tj T*
+(* ST. MARY'S HIGHER SECONDARY SCHOOL - Dindigul, India \(Graduated 2022\)) Tj T*
+(  Higher Secondary Certificate \(HSC\) - Science & Mathematics) Tj T*
+() Tj T*
+/F2 10.5 Tf (KEY TECHNICAL PROJECTS) Tj
+/F1 9 Tf T*
+(* KIEYVERSE: Corporate Digital Marketing Platform \(React.js, ES6+, SEO\)) Tj T*
+(* LUXURY.RAW: High-Concurrency Luxury E-Commerce Engine \(Spring Boot, Java, React, SQL\)) Tj T*
+(* TECH LMS: Learning Management System with Automated KYC Pipelines \(Spring Boot, Python, React, Mongo\)) Tj T*
+(* REAL-TIME V2V: Vehicle-to-Vehicle Socket Telematics Network \(Python, Sockets, IoT\)) Tj T*
+(* SOCIAL CONTENT SCHEDULER: Content Strategy & Publishing Platform \(React, Spring Boot, PostgreSQL\)) Tj T*
+(* AGRI-COMMERCE: Produce Exchange with Predictive Weather Analytics \(React, Spring Boot, MySQL\)) Tj T*
+() Tj T*
+/F2 10.5 Tf (CERTIFICATIONS) Tj
+/F1 9 Tf T*
+(* Python Using Data Structures - CodeTantra) Tj T*
+(* Applied Generative AI - Infosys Springboard) Tj T*
+(* RPA Foundation Course - Naan Mudhalvan) Tj T*
+(* Zoho Young Creator Program - Zoho Corporation) Tj T*
+(* React Web Development Internship Certification - Dot Com Infoway Ltd.) Tj T*
+ET
+endstream
+endobj
+5 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
+endobj
+6 0 obj
+<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>
+endobj
+xref
+0 7
+0000000000 65535 f 
+0000000009 00000 n 
+0000000058 00000 n 
+0000000115 00000 n 
+0000000257 00000 n 
+0000004115 00000 n 
+0000004185 00000 n 
+trailer
+<< /Size 7 /Root 1 0 R >>
+startxref
+4260
+%%EOF
