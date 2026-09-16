@@ -1,17 +1,22 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   X,
   Github,
   ExternalLink,
-  Layers,
   Sparkles,
-  CheckCircle2,
+  Layers,
   Cpu,
+  Server,
+  Database,
+  CheckCircle2,
   TrendingUp,
-  Workflow,
+  ShieldAlert,
+  Code2,
+  Terminal,
+  Activity,
 } from "lucide-react";
 import { ProjectItem } from "@/types";
 
@@ -21,23 +26,29 @@ interface ProjectModalProps {
 }
 
 export default function ProjectModal({ project, onClose }: ProjectModalProps) {
+  const [activeTab, setActiveTab] = useState<"overview" | "architecture" | "tech" | "results">("overview");
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
     };
+
     if (project) {
       document.body.style.overflow = "hidden";
       window.addEventListener("keydown", handleKeyDown);
     } else {
-      document.body.style.overflow = "unset";
+      document.body.style.overflow = "auto";
     }
+
     return () => {
-      document.body.style.overflow = "unset";
+      document.body.style.overflow = "auto";
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [project, onClose]);
 
   if (!project) return null;
+
+  const caseStudy = project.caseStudy;
 
   return (
     <AnimatePresence>
@@ -48,62 +59,265 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={onClose}
-          className="fixed inset-0 bg-black/85 backdrop-blur-xl"
+          className="fixed inset-0 bg-black/85 backdrop-blur-xl transition-opacity"
         />
 
-        {/* Modal Window */}
+        {/* Modal Window Frame */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
           transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-          className="relative w-full max-w-4xl bg-gradient-to-b from-[#141414] via-[#0D0D0D] to-[#080808] border border-white/20 rounded-2xl shadow-2xl overflow-hidden z-10 my-auto max-h-[90vh] flex flex-col"
+          className="relative w-full max-w-4xl max-h-[90vh] bg-[#0E0E0E] border border-white/15 rounded-2xl shadow-[0_0_50px_rgba(0,0,0,0.9)] flex flex-col overflow-hidden z-10"
         >
-          {/* Top Bar */}
-          <div className="flex items-center justify-between p-6 sm:px-8 border-b border-white/10 bg-[#121212]/80 sticky top-0 z-20 backdrop-blur-md">
-            <div className="flex items-center gap-3">
-              <span className="font-mono text-xs font-bold text-[#A100FF] px-2.5 py-1 rounded bg-[#A100FF]/15 border border-[#A100FF]/30 uppercase">
-                {project.number} / {project.category}
-              </span>
-              {project.completion && (
-                <span className="font-mono text-xs text-amber-400 px-2 py-0.5 rounded bg-amber-500/10 border border-amber-500/30">
-                  {project.completion}
+          {/* Top Modal Header */}
+          <div className="p-6 sm:p-8 border-b border-white/10 bg-[#141414] flex items-start justify-between gap-4">
+            <div className="space-y-1.5">
+              <div className="flex items-center gap-2.5">
+                <span className="font-mono text-xs font-bold text-[#A100FF] px-2.5 py-0.5 rounded bg-[#A100FF]/15 border border-[#A100FF]/30">
+                  PROJECT {project.number}
                 </span>
-              )}
+                <span className="font-mono text-xs text-neutral-400 uppercase">
+                  {project.category}
+                </span>
+                {project.badge && (
+                  <span className="px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/30 text-[10px] font-mono text-emerald-400 font-bold uppercase">
+                    {project.badge}
+                  </span>
+                )}
+              </div>
+
+              <h2 className="font-heading text-2xl sm:text-3xl font-extrabold text-white tracking-tight uppercase">
+                {project.title}
+              </h2>
+              <p className="font-mono text-xs text-[#C084FC] uppercase tracking-wider">
+                {project.subtitle}
+              </p>
             </div>
 
             <button
               onClick={onClose}
-              className="p-2 rounded-full text-neutral-400 hover:text-white hover:bg-white/10 transition-colors focus:outline-none focus:ring-2 focus:ring-[#A100FF]"
-              aria-label="Close project modal"
+              className="p-2 rounded-lg bg-neutral-900 border border-white/10 text-neutral-400 hover:text-white hover:border-[#A100FF] transition-all"
+              aria-label="Close modal"
             >
               <X className="w-5 h-5" />
             </button>
           </div>
 
-          {/* Modal Scrollable Content */}
-          <div className="p-6 sm:p-8 space-y-8 overflow-y-auto">
-            {/* Title & Subtitle */}
-            <div>
-              <h2 className="text-2xl sm:text-4xl font-extrabold text-white tracking-tight uppercase">
-                {project.title}
-              </h2>
-              <p className="text-base sm:text-lg text-neutral-400 font-mono mt-1">
-                {project.subtitle}
-              </p>
+          {/* Modal Navigation Tabs */}
+          <div className="flex items-center gap-2 px-6 sm:px-8 py-3 bg-[#111111] border-b border-white/5 font-mono text-xs overflow-x-auto">
+            <button
+              onClick={() => setActiveTab("overview")}
+              className={`px-3 py-1.5 rounded-md uppercase tracking-wider transition-colors shrink-0 ${
+                activeTab === "overview"
+                  ? "bg-[#A100FF] text-white font-bold"
+                  : "text-neutral-400 hover:text-white"
+              }`}
+            >
+              01 — OVERVIEW & PROBLEM
+            </button>
+            <button
+              onClick={() => setActiveTab("architecture")}
+              className={`px-3 py-1.5 rounded-md uppercase tracking-wider transition-colors shrink-0 ${
+                activeTab === "architecture"
+                  ? "bg-[#A100FF] text-white font-bold"
+                  : "text-neutral-400 hover:text-white"
+              }`}
+            >
+              02 — ARCHITECTURE & DESIGN
+            </button>
+            <button
+              onClick={() => setActiveTab("tech")}
+              className={`px-3 py-1.5 rounded-md uppercase tracking-wider transition-colors shrink-0 ${
+                activeTab === "tech"
+                  ? "bg-[#A100FF] text-white font-bold"
+                  : "text-neutral-400 hover:text-white"
+              }`}
+            >
+              03 — TECH & FEATURES
+            </button>
+            <button
+              onClick={() => setActiveTab("results")}
+              className={`px-3 py-1.5 rounded-md uppercase tracking-wider transition-colors shrink-0 ${
+                activeTab === "results"
+                  ? "bg-[#A100FF] text-white font-bold"
+                  : "text-neutral-400 hover:text-white"
+              }`}
+            >
+              04 — RESULTS & CHALLENGES
+            </button>
+          </div>
+
+          {/* Modal Scrollable Body */}
+          <div className="p-6 sm:p-8 overflow-y-auto space-y-8 flex-1">
+            {activeTab === "overview" && (
+              <div className="space-y-6">
+                <div className="space-y-2">
+                  <span className="font-mono text-xs uppercase tracking-widest text-[#A100FF] font-semibold">
+                    01 — EXECUTIVE OVERVIEW
+                  </span>
+                  <p className="text-sm text-neutral-300 leading-relaxed">
+                    {caseStudy?.overview || project.summary}
+                  </p>
+                </div>
+
+                <div className="space-y-2">
+                  <span className="font-mono text-xs uppercase tracking-widest text-[#C084FC] font-semibold">
+                    02 — PROBLEM STATEMENT
+                  </span>
+                  <p className="text-sm text-neutral-300 leading-relaxed bg-[#141414] p-4 rounded-xl border border-white/5">
+                    {caseStudy?.problem || project.problem}
+                  </p>
+                </div>
+
+                <div className="space-y-2">
+                  <span className="font-mono text-xs uppercase tracking-widest text-emerald-400 font-semibold">
+                    03 — ENGINEERED SOLUTION
+                  </span>
+                  <p className="text-sm text-neutral-300 leading-relaxed bg-[#141414] p-4 rounded-xl border border-white/5">
+                    {caseStudy?.solution || project.solution}
+                  </p>
+                </div>
+              </div>
+            )}
+
+            {activeTab === "architecture" && (
+              <div className="space-y-6">
+                <div className="space-y-3">
+                  <span className="font-mono text-xs uppercase tracking-widest text-[#A100FF] font-semibold">
+                    04 — SYSTEM ARCHITECTURE TOPOLOGY
+                  </span>
+                  <div className="space-y-2">
+                    {(caseStudy?.architecture || project.architecture).map((arch, aIdx) => (
+                      <div key={aIdx} className="flex items-start gap-3 p-3 rounded-lg bg-[#141414] border border-white/5 text-xs font-mono text-neutral-200">
+                        <Server className="w-4 h-4 text-[#A100FF] shrink-0 mt-0.5" />
+                        <span>{arch}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {caseStudy?.designDecisions && (
+                  <div className="space-y-3">
+                    <span className="font-mono text-xs uppercase tracking-widest text-[#C084FC] font-semibold">
+                      05 — DESIGN SYSTEM & UI/UX DECISIONS
+                    </span>
+                    <div className="space-y-2">
+                      {caseStudy.designDecisions.map((decision, dIdx) => (
+                        <div key={dIdx} className="flex items-start gap-3 p-3 rounded-lg bg-[#141414] border border-white/5 text-xs text-neutral-300">
+                          <CheckCircle2 className="w-4 h-4 text-[#7C3AED] shrink-0 mt-0.5" />
+                          <span>{decision}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {activeTab === "tech" && (
+              <div className="space-y-6">
+                <div className="space-y-3">
+                  <span className="font-mono text-xs uppercase tracking-widest text-[#A100FF] font-semibold">
+                    06 — TECHNOLOGY STACK BREAKDOWN
+                  </span>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {caseStudy?.technologyStack ? (
+                      caseStudy.technologyStack.map((stackGroup) => (
+                        <div key={stackGroup.category} className="p-4 rounded-xl bg-[#141414] border border-white/5 space-y-2">
+                          <span className="font-mono text-xs text-[#C084FC] uppercase font-bold">
+                            {stackGroup.category}
+                          </span>
+                          <div className="flex flex-wrap gap-1.5">
+                            {stackGroup.items.map((tech) => (
+                              <span key={tech} className="px-2 py-0.5 rounded bg-white/5 text-xs font-mono text-neutral-200">
+                                {tech}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      ))
+                    ) : (
+                      <div className="p-4 rounded-xl bg-[#141414] border border-white/5">
+                        <div className="flex flex-wrap gap-2">
+                          {project.technologies.map((tech) => (
+                            <span key={tech} className="px-2.5 py-1 rounded bg-white/5 font-mono text-xs text-neutral-200">
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                <div className="space-y-3">
+                  <span className="font-mono text-xs uppercase tracking-widest text-[#C084FC] font-semibold">
+                    07 — DEVELOPMENT & KEY CAPABILITIES
+                  </span>
+                  <div className="space-y-2">
+                    {(caseStudy?.developmentFeatures || project.keyFeatures).map((feat, fIdx) => (
+                      <div key={fIdx} className="flex items-start gap-3 p-3 rounded-lg bg-[#141414] border border-white/5 text-xs text-neutral-300">
+                        <Code2 className="w-4 h-4 text-[#A100FF] shrink-0 mt-0.5" />
+                        <span>{feat}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {activeTab === "results" && (
+              <div className="space-y-6">
+                {caseStudy?.challengesAndOptimizations && (
+                  <div className="space-y-3">
+                    <span className="font-mono text-xs uppercase tracking-widest text-[#A100FF] font-semibold">
+                      08 — TECHNICAL CHALLENGES & OPTIMIZATIONS
+                    </span>
+                    <div className="space-y-2">
+                      {caseStudy.challengesAndOptimizations.map((item, cIdx) => (
+                        <div key={cIdx} className="p-4 rounded-xl bg-[#141414] border border-white/5 text-xs text-neutral-300 leading-relaxed font-mono">
+                          {item}
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                <div className="space-y-3">
+                  <span className="font-mono text-xs uppercase tracking-widest text-emerald-400 font-semibold">
+                    09 — VERIFIED METRICS & PRODUCTION IMPACT
+                  </span>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {(caseStudy?.verifiedResults || project.metrics).map((metric, mIdx) => (
+                      <div key={mIdx} className="flex items-center gap-3 p-3.5 rounded-xl bg-emerald-950/20 border border-emerald-500/20 text-xs text-emerald-300 font-mono">
+                        <TrendingUp className="w-4 h-4 text-emerald-400 shrink-0" />
+                        <span>{metric}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Modal Bottom Sticky CTA Footer */}
+          <div className="p-6 border-t border-white/10 bg-[#141414] flex flex-wrap items-center justify-between gap-4">
+            <div className="flex items-center gap-2 font-mono text-xs text-neutral-400">
+              <Terminal className="w-4 h-4 text-[#A100FF]" />
+              <span>STATUS: PRODUCTION VERIFIED</span>
             </div>
 
-            {/* CTAs */}
-            <div className="flex flex-wrap items-center gap-3 pt-2">
+            <div className="flex items-center gap-3">
               {project.githubUrl && (
                 <a
                   href={project.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-4 py-2.5 bg-white text-black font-mono font-bold text-xs uppercase tracking-wider rounded hover:bg-neutral-200 transition-colors"
+                  className="px-4 py-2.5 rounded-lg bg-neutral-900 border border-white/15 text-white font-mono text-xs font-bold uppercase tracking-wider flex items-center gap-2 hover:border-[#A100FF] transition-all"
                 >
-                  <Github className="w-4 h-4" />
-                  <span>VIEW REPOSITORY</span>
+                  <Github className="w-4 h-4 text-[#A100FF]" />
+                  <span>VIEW REPO</span>
                 </a>
               )}
 
@@ -112,104 +326,12 @@ export default function ProjectModal({ project, onClose }: ProjectModalProps) {
                   href={project.liveDemoUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-4 py-2.5 bg-[#A100FF] text-white font-mono font-bold text-xs uppercase tracking-wider rounded hover:bg-[#7C3AED] transition-colors"
+                  className="px-5 py-2.5 rounded-lg bg-gradient-to-r from-[#A100FF] to-[#7C3AED] text-white font-mono text-xs font-bold uppercase tracking-wider flex items-center gap-2 hover:opacity-90 shadow-lg shadow-[#A100FF]/25 transition-all"
                 >
                   <ExternalLink className="w-4 h-4" />
-                  <span>LIVE PLATFORM</span>
+                  <span>LIVE DEMO</span>
                 </a>
               )}
-            </div>
-
-            {/* Problem & Solution Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="p-5 rounded-xl bg-black/50 border border-white/10 space-y-2">
-                <div className="flex items-center gap-2 font-mono text-xs text-rose-400 uppercase font-bold">
-                  <span>THE ENGINEERING CHALLENGE</span>
-                </div>
-                <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed">
-                  {project.problem}
-                </p>
-              </div>
-
-              <div className="p-5 rounded-xl bg-black/50 border border-white/10 space-y-2">
-                <div className="flex items-center gap-2 font-mono text-xs text-emerald-400 uppercase font-bold">
-                  <span>THE ARCHITECTURAL SOLUTION</span>
-                </div>
-                <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed">
-                  {project.solution}
-                </p>
-              </div>
-            </div>
-
-            {/* Architecture Highlights */}
-            <div className="space-y-4">
-              <h3 className="font-mono text-xs font-bold uppercase tracking-wider text-neutral-400 flex items-center gap-2">
-                <Workflow className="w-4 h-4 text-[#A100FF]" />
-                <span>SYSTEM ARCHITECTURE & DESIGN DECISIONS</span>
-              </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {project.architecture.map((arch, idx) => (
-                  <div
-                    key={idx}
-                    className="p-3.5 rounded-lg bg-neutral-900/60 border border-white/5 flex items-start gap-2.5"
-                  >
-                    <div className="w-1.5 h-1.5 rounded-full bg-[#A100FF] shrink-0 mt-1.5" />
-                    <span className="text-xs text-neutral-300 leading-relaxed">{arch}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Key Features */}
-            <div className="space-y-4">
-              <h3 className="font-mono text-xs font-bold uppercase tracking-wider text-neutral-400 flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-[#A100FF]" />
-                <span>KEY FEATURES IMPLEMENTED</span>
-              </h3>
-              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                {project.keyFeatures.map((feature, fIdx) => (
-                  <li
-                    key={fIdx}
-                    className="flex items-start gap-2 text-xs text-neutral-300 leading-relaxed"
-                  >
-                    <span className="text-[#C084FC] font-mono">▸</span>
-                    <span>{feature}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Measurable Performance Metrics */}
-            <div className="p-5 rounded-xl bg-gradient-to-r from-[#A100FF]/10 via-black to-black border border-[#A100FF]/30">
-              <h3 className="font-mono text-xs font-bold uppercase tracking-wider text-[#C084FC] mb-3 flex items-center gap-2">
-                <TrendingUp className="w-4 h-4" />
-                <span>MEASURED RESULTS & BENCHMARKS</span>
-              </h3>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                {project.metrics.map((m, mIdx) => (
-                  <div key={mIdx} className="font-mono text-xs text-white">
-                    <div className="text-neutral-400 text-[10px] uppercase">Benchmark 0{mIdx + 1}</div>
-                    <div className="font-bold text-sm text-[#C084FC] mt-0.5">{m}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Technologies */}
-            <div>
-              <h3 className="font-mono text-xs font-bold uppercase tracking-wider text-neutral-400 mb-3">
-                TECHNOLOGIES UTILIZED:
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                {project.technologies.map((t) => (
-                  <span
-                    key={t}
-                    className="px-3 py-1 rounded bg-neutral-900 border border-white/10 font-mono text-xs text-neutral-300"
-                  >
-                    {t}
-                  </span>
-                ))}
-              </div>
             </div>
           </div>
         </motion.div>

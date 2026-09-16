@@ -1,16 +1,18 @@
 "use client";
 
 import React, { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Briefcase,
   Calendar,
   MapPin,
-  ChevronRight,
-  ExternalLink,
-  Award,
   Sparkles,
+  Award,
+  ChevronDown,
+  ChevronUp,
+  ExternalLink,
   CheckCircle2,
+  Terminal,
 } from "lucide-react";
 import { experienceData } from "@/data/portfolioData";
 import { ExperienceItem } from "@/types";
@@ -20,164 +22,175 @@ interface ExperienceTimelineProps {
 }
 
 export default function ExperienceTimeline({ onOpenCertificate }: ExperienceTimelineProps) {
-  const [activeExpId, setActiveExpId] = useState<string>(experienceData[0].id);
+  const [expandedId, setExpandedId] = useState<string | null>("exp-techzon");
+
+  const toggleExpand = (id: string) => {
+    setExpandedId(expandedId === id ? null : id);
+  };
 
   return (
-    <section id="experience" className="relative py-28 px-6 md:px-12 bg-[#050505] border-t border-white/10">
+    <section id="experience" className="relative py-28 px-6 md:px-12 bg-[#0A0A0A] border-t border-white/10">
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Section Header */}
-        <div className="flex flex-col space-y-4 max-w-2xl mb-16">
-          <div className="flex items-center gap-2 text-xs font-mono text-[#A100FF] uppercase tracking-widest">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>04 / CAREER MILESTONES</span>
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+          <div className="space-y-4 max-w-2xl">
+            <div className="flex items-center gap-2 text-xs font-mono text-[#A100FF] uppercase tracking-widest">
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>03 / PROFESSIONAL TRAJECTORY</span>
+            </div>
+            <h2 className="font-heading text-3xl sm:text-5xl font-extrabold tracking-tight text-white uppercase leading-[1.05]">
+              ENGINEERING
+              <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-neutral-300 to-neutral-500">
+                EXPERIENCE.
+              </span>
+            </h2>
+            <p className="text-neutral-400 text-sm sm:text-base leading-relaxed">
+              Proven enterprise engineering roles spanning full-stack microservices architecture,
+              responsive web development, UI/UX systems, and team leadership.
+            </p>
           </div>
-          <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white uppercase leading-[1.05]">
-            PROFESSIONAL
-            <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-neutral-300 to-neutral-500">
-              EXPERIENCE.
-            </span>
-          </h2>
-          <p className="text-neutral-400 text-sm sm:text-base leading-relaxed">
-            Progressive software engineering track record across enterprise teams, high-throughput systems,
-            React client development, and modern product design.
-          </p>
+
+          <div className="text-right hidden md:block font-mono text-xs text-neutral-400">
+            <span>[ 04 VERIFIED ROLES • 2024 — 2026 ]</span>
+          </div>
         </div>
 
-        {/* Timeline Desktop & Mobile Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* Company Selector Column (Desktop) */}
-          <div className="lg:col-span-5 flex flex-col space-y-3">
-            {experienceData.map((exp, idx) => {
-              const isSelected = activeExpId === exp.id;
-              return (
-                <button
-                  key={exp.id}
-                  onClick={() => setActiveExpId(exp.id)}
-                  className={`text-left p-5 rounded-xl border transition-all relative overflow-hidden flex flex-col justify-between ${
-                    isSelected
-                      ? "bg-gradient-to-r from-[#171717] to-[#111111] border-[#A100FF] shadow-[0_0_25px_rgba(161,0,255,0.15)]"
-                      : "bg-[#0A0A0A] border-white/10 hover:border-white/20 hover:bg-[#121212]"
+        {/* Interactive Experience Timeline Container */}
+        <div className="relative border-l border-white/15 ml-4 sm:ml-8 pl-6 sm:pl-10 space-y-10">
+          {experienceData.map((item, idx) => {
+            const isExpanded = expandedId === item.id;
+            return (
+              <motion.div
+                key={item.id}
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                className="relative group"
+              >
+                {/* Timeline node bullet */}
+                <div
+                  className={`absolute -left-[31px] sm:-left-[47px] top-6 w-4 h-4 rounded-full border-2 transition-all duration-300 ${
+                    item.isCurrent
+                      ? "bg-[#A100FF] border-white ring-4 ring-[#A100FF]/25 animate-pulse"
+                      : isExpanded
+                      ? "bg-[#7C3AED] border-white ring-2 ring-[#7C3AED]/30"
+                      : "bg-[#111111] border-neutral-600 group-hover:border-[#A100FF]"
+                  }`}
+                />
+
+                {/* Experience Card */}
+                <div
+                  className={`rounded-2xl border transition-all duration-300 overflow-hidden shadow-2xl ${
+                    isExpanded
+                      ? "bg-[#111111] border-[#A100FF]/60 shadow-[0_0_35px_rgba(161,0,255,0.12)]"
+                      : "bg-[#0E0E0E] border-white/10 hover:border-white/20"
                   }`}
                 >
-                  {isSelected && (
-                    <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-[#A100FF]" />
-                  )}
-
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="font-mono text-[11px] text-neutral-400 uppercase tracking-widest">
-                      0{idx + 1} / {exp.period}
-                    </span>
-                    {exp.isCurrent && (
-                      <span className="px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-[10px] font-mono text-emerald-400">
-                        CURRENT ROLE
-                      </span>
-                    )}
-                  </div>
-
-                  <h3 className="font-mono text-base sm:text-lg font-bold text-white tracking-tight uppercase">
-                    {exp.company}
-                  </h3>
-
-                  <p className="text-xs font-mono text-[#C084FC] uppercase tracking-wide mt-1">
-                    {exp.role}
-                  </p>
-
-                  <div className="flex items-center gap-1 text-[11px] text-neutral-400 font-mono mt-3">
-                    <MapPin className="w-3 h-3 text-[#A100FF]" />
-                    <span>{exp.location}</span>
-                  </div>
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Active Experience Detailed Card (Desktop & Mobile) */}
-          <div className="lg:col-span-7">
-            {experienceData
-              .filter((exp) => exp.id === activeExpId)
-              .map((exp) => (
-                <motion.div
-                  key={exp.id}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ duration: 0.4 }}
-                  className="p-8 rounded-xl bg-gradient-to-b from-[#141414] via-[#0D0D0D] to-[#070707] border border-white/15 shadow-2xl flex flex-col justify-between"
-                >
-                  <div>
-                    {/* Header */}
-                    <div className="flex flex-wrap items-start justify-between gap-4 pb-6 border-b border-white/10">
-                      <div>
-                        <span className="font-mono text-xs text-[#A100FF] uppercase tracking-wider block mb-1">
-                          ENTERPRISE POSITION SPECIFICATION
+                  {/* Header trigger */}
+                  <div
+                    onClick={() => toggleExpand(item.id)}
+                    className="p-6 sm:p-8 cursor-pointer flex flex-col sm:flex-row sm:items-center justify-between gap-4 select-none"
+                    role="button"
+                    aria-expanded={isExpanded}
+                  >
+                    <div className="space-y-1.5">
+                      <div className="flex flex-wrap items-center gap-2.5">
+                        <span className="font-heading text-lg sm:text-xl font-extrabold text-white tracking-tight uppercase group-hover:text-[#C084FC] transition-colors">
+                          {item.company}
                         </span>
-                        <h3 className="text-2xl sm:text-3xl font-bold text-white uppercase tracking-tight">
-                          {exp.role}
-                        </h3>
-                        <p className="text-sm font-mono text-neutral-300 mt-1">
-                          {exp.company} • {exp.location}
-                        </p>
-                      </div>
-
-                      <div className="flex flex-col items-end gap-2">
-                        <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-white/5 border border-white/10 text-xs font-mono text-neutral-300">
-                          <Calendar className="w-3.5 h-3.5 text-[#A100FF]" />
-                          <span>{exp.period}</span>
-                        </div>
-
-                        {exp.certificateUrl && (
-                          <button
-                            onClick={() =>
-                              onOpenCertificate(
-                                exp.certificateUrl!,
-                                `${exp.company} - Internship Certificate`
-                              )
-                            }
-                            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#A100FF]/15 border border-[#A100FF]/50 text-xs font-mono text-[#C084FC] hover:bg-[#A100FF] hover:text-white transition-all shadow-sm"
-                          >
-                            <Award className="w-3.5 h-3.5" />
-                            <span>VIEW CERTIFICATE</span>
-                          </button>
+                        {item.isCurrent && (
+                          <span className="px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 font-mono text-[10px] text-emerald-400 font-bold uppercase tracking-wider">
+                            ACTIVE ROLE
+                          </span>
                         )}
                       </div>
-                    </div>
 
-                    {/* Accomplishment Highlights */}
-                    <div className="py-6 space-y-4">
-                      <h4 className="font-mono text-xs font-bold uppercase tracking-wider text-neutral-400">
-                        KEY ACCOMPLISHMENTS & ARCHITECTURAL IMPACT:
-                      </h4>
+                      <div className="text-sm font-mono text-[#A100FF] font-semibold uppercase tracking-wider">
+                        {item.role}
+                      </div>
 
-                      <ul className="space-y-3.5">
-                        {exp.highlights.map((highlight, hIdx) => (
-                          <li key={hIdx} className="flex items-start gap-3 text-sm text-neutral-300 leading-relaxed">
-                            <CheckCircle2 className="w-4 h-4 text-[#A100FF] shrink-0 mt-0.5" />
-                            <span>{highlight}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-
-                  {/* Technologies Used Footer */}
-                  <div className="pt-6 border-t border-white/10">
-                    <h4 className="font-mono text-[11px] font-bold uppercase tracking-wider text-neutral-400 mb-3">
-                      TECHNOLOGY STACK:
-                    </h4>
-                    <div className="flex flex-wrap gap-2">
-                      {exp.technologies.map((tech) => (
-                        <span
-                          key={tech}
-                          className="px-2.5 py-1 rounded bg-neutral-900 border border-white/10 font-mono text-xs text-neutral-300"
-                        >
-                          {tech}
+                      <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-neutral-400 pt-1">
+                        <span className="flex items-center gap-1.5">
+                          <Calendar className="w-3.5 h-3.5 text-neutral-500" />
+                          {item.period}
                         </span>
-                      ))}
+                        <span className="flex items-center gap-1.5">
+                          <MapPin className="w-3.5 h-3.5 text-neutral-500" />
+                          {item.location}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="flex items-center gap-3 shrink-0">
+                      {item.certificateUrl && (
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            onOpenCertificate(item.certificateUrl!, `${item.company} — Verified Credential`);
+                          }}
+                          className="px-3 py-1.5 rounded-lg bg-[#A100FF]/15 border border-[#A100FF]/30 hover:bg-[#A100FF] text-[#C084FC] hover:text-white font-mono text-xs uppercase tracking-wider flex items-center gap-1.5 transition-all"
+                        >
+                          <Award className="w-3.5 h-3.5" />
+                          <span>CREDENTIAL</span>
+                        </button>
+                      )}
+
+                      <div className="p-2 rounded-lg bg-white/5 text-neutral-400 group-hover:text-white transition-colors">
+                        {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                      </div>
                     </div>
                   </div>
-                </motion.div>
-              ))}
-          </div>
+
+                  {/* Expanded Content Body */}
+                  <AnimatePresence>
+                    {isExpanded && (
+                      <motion.div
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.35, ease: "easeInOut" }}
+                        className="px-6 sm:px-8 pb-8 pt-2 border-t border-white/5 space-y-6"
+                      >
+                        {/* Key Responsibilities & Highlights */}
+                        <div className="space-y-3">
+                          <span className="font-mono text-xs uppercase tracking-widest text-[#A100FF] font-semibold">
+                            RESPONSIBILITIES & ENGINEERING IMPACT
+                          </span>
+                          <ul className="space-y-2.5">
+                            {item.highlights.map((highlight, hIdx) => (
+                              <li key={hIdx} className="flex items-start gap-3 text-sm text-neutral-300 leading-relaxed">
+                                <CheckCircle2 className="w-4 h-4 text-[#A100FF] shrink-0 mt-0.5" />
+                                <span>{highlight}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+
+                        {/* Tech Stack Applied */}
+                        <div className="space-y-2.5 pt-2">
+                          <span className="font-mono text-xs uppercase tracking-widest text-neutral-400 font-semibold">
+                            TECHNOLOGIES APPLIED
+                          </span>
+                          <div className="flex flex-wrap gap-2">
+                            {item.technologies.map((tech) => (
+                              <span
+                                key={tech}
+                                className="px-2.5 py-1 rounded-md bg-white/5 border border-white/10 font-mono text-xs text-neutral-200"
+                              >
+                                {tech}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>

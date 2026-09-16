@@ -13,6 +13,7 @@ import {
   Layers,
   ArrowRight,
   Maximize2,
+  CheckCircle2,
 } from "lucide-react";
 import { projectData } from "@/data/portfolioData";
 import { ProjectItem } from "@/types";
@@ -22,7 +23,7 @@ export default function ProjectShowcase() {
   const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
 
   return (
-    <section id="projects" className="relative py-28 px-6 md:px-12 bg-black border-t border-white/10">
+    <section id="projects" className="relative py-28 px-6 md:px-12 bg-[#0A0A0A] border-t border-white/10">
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
@@ -31,7 +32,7 @@ export default function ProjectShowcase() {
               <Sparkles className="w-3.5 h-3.5" />
               <span>05 / SELECTED ENGINEERING PROJECTS</span>
             </div>
-            <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white uppercase leading-[1.05]">
+            <h2 className="font-heading text-3xl sm:text-5xl font-extrabold tracking-tight text-white uppercase leading-[1.05]">
               FEATURED
               <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-neutral-300 to-neutral-500">
@@ -40,12 +41,12 @@ export default function ProjectShowcase() {
             </h2>
             <p className="text-neutral-400 text-sm sm:text-base leading-relaxed">
               Production systems, microservices architectures, real-time IoT pipelines, and high-performance
-              web platforms engineered by Hari Haran A.
+              web platforms engineered with verified benchmarks.
             </p>
           </div>
 
           <div className="text-right hidden md:block font-mono text-xs text-neutral-400">
-            <span>[ 06 VERIFIED PROJECTS ]</span>
+            <span>[ 06 VERIFIED CASE STUDIES ]</span>
           </div>
         </div>
 
@@ -58,28 +59,28 @@ export default function ProjectShowcase() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: idx * 0.08 }}
-              className="group relative rounded-2xl bg-gradient-to-b from-[#121212] via-[#0A0A0A] to-[#050505] border border-white/10 hover:border-[#A100FF]/70 transition-all duration-300 shadow-2xl flex flex-col justify-between overflow-hidden"
+              className="group relative rounded-2xl bg-gradient-to-b from-[#141414] via-[#0E0E0E] to-[#0A0A0A] border border-white/10 hover:border-[#A100FF]/70 transition-all duration-300 shadow-2xl flex flex-col justify-between overflow-hidden"
             >
               {/* Subtle Card Ambient Glow */}
-              <div className="absolute top-0 right-0 w-32 h-32 bg-[#A100FF]/10 rounded-full blur-2xl group-hover:bg-[#A100FF]/25 transition-colors pointer-events-none" />
+              <div className="absolute top-0 right-0 w-36 h-36 bg-[#A100FF]/10 rounded-full blur-2xl group-hover:bg-[#A100FF]/25 transition-colors pointer-events-none" />
 
               <div className="p-7 space-y-5">
                 {/* Top Number & Category */}
                 <div className="flex items-center justify-between">
-                  <span className="font-mono text-xs font-bold text-[#A100FF] tracking-wider px-2.5 py-1 rounded bg-[#A100FF]/10 border border-[#A100FF]/20">
+                  <span className="font-mono text-xs font-bold text-[#A100FF] tracking-wider px-2.5 py-1 rounded-md bg-[#A100FF]/10 border border-[#A100FF]/25">
                     {project.number}
                   </span>
-                  <span className="font-mono text-[10px] uppercase text-neutral-400">
+                  <span className="font-mono text-[11px] uppercase text-neutral-400">
                     {project.category}
                   </span>
                 </div>
 
                 {/* Title & Subtitle */}
                 <div>
-                  <h3 className="text-xl sm:text-2xl font-extrabold text-white tracking-tight uppercase group-hover:text-white transition-colors">
+                  <h3 className="font-heading text-xl sm:text-2xl font-extrabold text-white tracking-tight uppercase group-hover:text-white transition-colors">
                     {project.title}
                   </h3>
-                  <p className="text-xs font-mono text-[#C084FC] uppercase tracking-wide mt-1">
+                  <p className="text-xs font-mono text-[#C084FC] uppercase tracking-wide mt-1 line-clamp-1">
                     {project.subtitle}
                   </p>
                 </div>

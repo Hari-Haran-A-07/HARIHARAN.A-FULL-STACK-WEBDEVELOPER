@@ -3,148 +3,168 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import {
-  Workflow,
-  ArrowRight,
-  Sparkles,
-  Server,
   Layers,
+  Server,
+  Shield,
+  Cpu,
   Database,
   Activity,
-  Lock,
-  Cpu,
+  Sparkles,
+  ArrowDown,
+  ArrowRight,
   CheckCircle2,
+  Terminal,
 } from "lucide-react";
 import { architectureLayers } from "@/data/portfolioData";
+import { ArchitectureLayer } from "@/types";
 
 export default function ArchitectureSection() {
-  const [activeLayerIndex, setActiveLayerIndex] = useState(0);
+  const [activeLayerIndex, setActiveLayerIndex] = useState<number>(0);
+
+  const layerIcons = [
+    <Layers key="client" className="w-5 h-5 text-[#A100FF]" />,
+    <Shield key="gateway" className="w-5 h-5 text-[#7C3AED]" />,
+    <Server key="microservices" className="w-5 h-5 text-[#9333EA]" />,
+    <Cpu key="async" className="w-5 h-5 text-[#C084FC]" />,
+    <Database key="db" className="w-5 h-5 text-[#38BDF8]" />,
+    <Activity key="monitoring" className="w-5 h-5 text-emerald-400" />,
+  ];
+
+  const activeLayer = architectureLayers[activeLayerIndex];
 
   return (
-    <section id="architecture" className="relative py-28 px-6 md:px-12 bg-[#050505] border-t border-white/10">
+    <section id="architecture" className="relative py-28 px-6 md:px-12 bg-[#0A0A0A] border-t border-white/10">
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Section Header */}
         <div className="flex flex-col space-y-4 max-w-2xl mb-16">
           <div className="flex items-center gap-2 text-xs font-mono text-[#A100FF] uppercase tracking-widest">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>06 / SYSTEM TOPOLOGY</span>
+            <span>06 / SYSTEM ARCHITECTURE TOPOLOGY</span>
           </div>
-          <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white uppercase leading-[1.05]">
+          <h2 className="font-heading text-3xl sm:text-5xl font-extrabold tracking-tight text-white uppercase leading-[1.05]">
             HOW I BUILD:
             <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-neutral-300 to-neutral-500">
-              ENTERPRISE DATA FLOW.
+              END-TO-END PIPELINES.
             </span>
           </h2>
           <p className="text-neutral-400 text-sm sm:text-base leading-relaxed">
-            Multi-tiered, low-latency architecture blueprint engineered for continuous uptime, resilient data
-            pipelines, and high-concurrency throughput.
+            Enterprise application blueprint designed for fault isolation, sub-millisecond persistence lookups,
+            stateless gateway authentication, and continuous observability.
           </p>
         </div>
 
-        {/* Interactive Architecture Workflow */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* Step Selector Pipeline */}
-          <div className="lg:col-span-6 flex flex-col space-y-3">
+        {/* 6-Layer Architecture Interactive Pipeline */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+          {/* Left Flow Column / Selector */}
+          <div className="lg:col-span-6 space-y-3">
             {architectureLayers.map((layer, idx) => {
-              const isSelected = activeLayerIndex === idx;
+              const isActive = activeLayerIndex === idx;
               return (
-                <button
+                <div
                   key={layer.step}
                   onClick={() => setActiveLayerIndex(idx)}
-                  className={`text-left p-5 rounded-xl border transition-all relative overflow-hidden flex items-center justify-between ${
-                    isSelected
-                      ? "bg-gradient-to-r from-[#1A1A1A] to-[#121212] border-[#A100FF] shadow-[0_0_20px_rgba(161,0,255,0.2)]"
-                      : "bg-[#0A0A0A] border-white/10 hover:border-white/20 hover:bg-[#121212]"
+                  className={`p-5 rounded-2xl border transition-all duration-300 cursor-pointer flex items-center justify-between gap-4 select-none ${
+                    isActive
+                      ? "bg-[#141414] border-[#A100FF] shadow-[0_0_30px_rgba(161,0,255,0.18)] scale-[1.01]"
+                      : "bg-[#0E0E0E] border-white/10 hover:border-white/20 hover:bg-[#111111]"
                   }`}
+                  role="button"
+                  aria-pressed={isActive}
                 >
-                  {isSelected && (
-                    <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-[#A100FF]" />
-                  )}
-
                   <div className="flex items-center gap-4">
-                    <span className="font-mono text-sm font-bold text-[#A100FF]">
-                      {layer.step}
-                    </span>
+                    <div className="p-2.5 rounded-xl bg-black/60 border border-white/5">
+                      {layerIcons[idx]}
+                    </div>
                     <div>
-                      <h3 className="font-mono text-xs sm:text-sm font-bold text-white uppercase tracking-wider">
-                        {layer.title}
-                      </h3>
-                      <p className="text-[11px] font-mono text-neutral-400 mt-0.5">
+                      <div className="flex items-center gap-2">
+                        <span className="font-mono text-xs font-bold text-[#A100FF]">
+                          {layer.step}
+                        </span>
+                        <h3 className="font-heading text-sm sm:text-base font-bold text-white uppercase tracking-tight">
+                          {layer.title}
+                        </h3>
+                      </div>
+                      <div className="text-[11px] font-mono text-neutral-400 pt-0.5">
                         {layer.dataFlow}
-                      </p>
+                      </div>
                     </div>
                   </div>
 
                   <ArrowRight
-                    className={`w-4 h-4 transition-transform ${
-                      isSelected ? "text-[#C084FC] translate-x-1" : "text-neutral-600"
+                    className={`w-4 h-4 transition-transform shrink-0 ${
+                      isActive ? "text-[#A100FF] translate-x-1" : "text-neutral-600"
                     }`}
                   />
-                </button>
+                </div>
               );
             })}
           </div>
 
-          {/* Interactive Layer Visual Inspector */}
-          <div className="lg:col-span-6">
-            <motion.div
-              key={activeLayerIndex}
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.35 }}
-              className="p-8 rounded-2xl bg-gradient-to-b from-[#141414] via-[#0D0D0D] to-[#070707] border border-white/15 shadow-2xl flex flex-col justify-between"
-            >
-              <div>
-                {/* Visual Top Bar */}
-                <div className="flex items-center justify-between pb-6 border-b border-white/10">
-                  <div className="flex items-center gap-2">
-                    <Workflow className="w-5 h-5 text-[#A100FF]" />
-                    <span className="font-mono text-xs text-neutral-300 font-bold uppercase tracking-wider">
-                      LAYER {architectureLayers[activeLayerIndex].step} SPECIFICATION
-                    </span>
-                  </div>
-                  <span className="px-2.5 py-1 rounded bg-[#A100FF]/15 border border-[#A100FF]/30 text-[10px] font-mono text-[#C084FC]">
-                    ACTIVE TIER
+          {/* Right Detailed Inspector Panel */}
+          <div className="lg:col-span-6 p-7 sm:p-9 rounded-2xl bg-gradient-to-b from-[#141414] via-[#0E0E0E] to-[#0A0A0A] border border-[#A100FF]/40 shadow-2xl flex flex-col justify-between">
+            <div className="space-y-6">
+              {/* Active Layer Header */}
+              <div className="flex items-start justify-between pb-4 border-b border-white/10">
+                <div className="space-y-1">
+                  <span className="font-mono text-xs text-[#A100FF] uppercase tracking-widest font-bold">
+                    LAYER {activeLayer.step} INSPECTION
                   </span>
-                </div>
-
-                {/* Layer Description */}
-                <div className="py-6 space-y-4">
-                  <h3 className="text-xl sm:text-2xl font-bold text-white uppercase tracking-tight">
-                    {architectureLayers[activeLayerIndex].title}
+                  <h3 className="font-heading text-xl sm:text-2xl font-extrabold text-white uppercase tracking-tight">
+                    {activeLayer.title}
                   </h3>
-                  <p className="text-sm text-neutral-300 leading-relaxed">
-                    {architectureLayers[activeLayerIndex].description}
-                  </p>
-
-                  <div className="p-4 rounded-xl bg-black/60 border border-white/10 space-y-1 mt-4">
-                    <span className="text-[10px] font-mono text-neutral-500 uppercase tracking-widest block">
-                      DATA FLOW PROTOCOL:
-                    </span>
-                    <span className="text-xs font-mono text-emerald-400 font-semibold">
-                      {architectureLayers[activeLayerIndex].dataFlow}
-                    </span>
-                  </div>
+                </div>
+                <div className="p-3 rounded-xl bg-black/60 border border-white/10">
+                  {layerIcons[activeLayerIndex]}
                 </div>
               </div>
 
-              {/* Technologies in this Layer */}
-              <div className="pt-6 border-t border-white/10">
-                <span className="font-mono text-[11px] font-bold text-neutral-400 uppercase tracking-wider block mb-3">
-                  INTEGRATED TECHNOLOGIES:
+              {/* Description */}
+              <p className="text-sm text-neutral-300 leading-relaxed">
+                {activeLayer.description}
+              </p>
+
+              {/* Technologies Applied */}
+              <div className="space-y-2">
+                <span className="font-mono text-xs uppercase tracking-widest text-neutral-400 font-semibold">
+                  TECHNOLOGY STACK
                 </span>
                 <div className="flex flex-wrap gap-2">
-                  {architectureLayers[activeLayerIndex].tech.map((t) => (
+                  {activeLayer.tech.map((t) => (
                     <span
                       key={t}
-                      className="px-3 py-1 rounded bg-neutral-900 border border-white/10 font-mono text-xs text-neutral-200"
+                      className="px-3 py-1 rounded-lg bg-white/5 border border-white/10 font-mono text-xs text-white"
                     >
                       {t}
                     </span>
                   ))}
                 </div>
               </div>
-            </motion.div>
+
+              {/* Key Responsibilities */}
+              <div className="space-y-2.5 pt-2">
+                <span className="font-mono text-xs uppercase tracking-widest text-[#C084FC] font-semibold">
+                  CORE RESPONSIBILITIES & INVARIANTS
+                </span>
+                <div className="space-y-2">
+                  {activeLayer.keyResponsibilities.map((resp, rIdx) => (
+                    <div key={rIdx} className="flex items-start gap-3 text-xs text-neutral-300 font-mono">
+                      <CheckCircle2 className="w-4 h-4 text-[#A100FF] shrink-0 mt-0.5" />
+                      <span>{resp}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Data Flow Indicator */}
+            <div className="pt-6 mt-6 border-t border-white/10 flex items-center justify-between font-mono text-xs text-neutral-400">
+              <span className="flex items-center gap-2">
+                <Terminal className="w-4 h-4 text-[#A100FF]" />
+                <span>DATA INGRESS:</span>
+              </span>
+              <span className="text-emerald-400 font-bold">{activeLayer.dataFlow}</span>
+            </div>
           </div>
         </div>
       </div>

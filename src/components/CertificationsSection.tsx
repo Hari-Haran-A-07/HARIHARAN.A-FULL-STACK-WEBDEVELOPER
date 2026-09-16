@@ -33,7 +33,7 @@ export default function CertificationsSection({
   };
 
   return (
-    <section id="certifications" className="relative py-28 px-6 md:px-12 bg-[#050505] border-t border-white/10">
+    <section id="certifications" className="relative py-28 px-6 md:px-12 bg-[#080808] border-t border-white/10">
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
@@ -42,7 +42,7 @@ export default function CertificationsSection({
               <Sparkles className="w-3.5 h-3.5" />
               <span>10 / CREDENTIALS & SPECIALIZATIONS</span>
             </div>
-            <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white uppercase leading-[1.05]">
+            <h2 className="font-heading text-3xl sm:text-5xl font-extrabold tracking-tight text-white uppercase leading-[1.05]">
               VERIFIED
               <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-neutral-300 to-neutral-500">
@@ -55,7 +55,7 @@ export default function CertificationsSection({
             </p>
           </div>
 
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-neutral-900 border border-white/10 font-mono text-xs text-neutral-300">
+          <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-neutral-900 border border-white/10 font-mono text-xs text-neutral-300">
             <ShieldCheck className="w-4 h-4 text-emerald-400" />
             <span>5 ACCREDITED CERTIFICATIONS</span>
           </div>
@@ -71,12 +71,12 @@ export default function CertificationsSection({
               viewport={{ once: true }}
               transition={{ duration: 0.45, delay: idx * 0.08 }}
               onClick={() => handleCardClick(cert)}
-              className="group relative p-7 rounded-2xl bg-gradient-to-b from-[#111111] via-[#0A0A0A] to-[#060606] border border-white/10 hover:border-[#A100FF]/80 transition-all duration-300 cursor-pointer flex flex-col justify-between shadow-xl"
+              className="group relative p-7 rounded-2xl bg-gradient-to-b from-[#141414] via-[#0E0E0E] to-[#0A0A0A] border border-white/10 hover:border-[#A100FF]/80 transition-all duration-300 cursor-pointer flex flex-col justify-between shadow-xl"
             >
               {/* Top Bar */}
               <div>
                 <div className="flex items-center justify-between pb-4 mb-4 border-b border-white/10">
-                  <span className="font-mono text-[10px] text-[#A100FF] uppercase tracking-wider px-2 py-0.5 rounded bg-[#A100FF]/10 border border-[#A100FF]/20">
+                  <span className="font-mono text-[10px] text-[#A100FF] uppercase tracking-wider px-2 py-0.5 rounded bg-[#A100FF]/10 border border-[#A100FF]/20 font-bold">
                     CREDENTIAL 0{idx + 1}
                   </span>
                   {cert.isVerifiedAsset ? (
@@ -88,7 +88,7 @@ export default function CertificationsSection({
                   )}
                 </div>
 
-                <h3 className="text-lg sm:text-xl font-bold text-white tracking-tight uppercase group-hover:text-white transition-colors">
+                <h3 className="font-heading text-lg sm:text-xl font-bold text-white tracking-tight uppercase group-hover:text-white transition-colors">
                   {cert.title}
                 </h3>
 
@@ -152,7 +152,7 @@ export default function CertificationsSection({
               </div>
 
               <div className="space-y-3">
-                <h3 className="text-2xl font-bold text-white uppercase">{selectedCert.title}</h3>
+                <h3 className="font-heading text-2xl font-bold text-white uppercase">{selectedCert.title}</h3>
                 <p className="font-mono text-xs text-[#A100FF] uppercase">{selectedCert.issuer}</p>
                 <p className="text-sm text-neutral-300 leading-relaxed">{selectedCert.description}</p>
               </div>
@@ -174,7 +174,7 @@ export default function CertificationsSection({
               <div className="pt-4 border-t border-white/10 flex justify-end">
                 <button
                   onClick={() => setSelectedCert(null)}
-                  className="px-4 py-2 bg-white text-black font-mono font-bold text-xs uppercase tracking-wider rounded hover:bg-neutral-200"
+                  className="px-4 py-2 bg-white text-black font-mono font-bold text-xs uppercase tracking-wider rounded-lg hover:bg-neutral-200"
                 >
                   CLOSE SPECIFICATION
                 </button>

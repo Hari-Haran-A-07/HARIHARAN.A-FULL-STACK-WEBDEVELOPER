@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import CustomCursor from "@/components/CustomCursor";
 
@@ -9,28 +9,42 @@ const inter = Inter({
   display: "swap",
 });
 
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-space-grotesk",
+  display: "swap",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jetbrains-mono",
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://hari-haran.dev"),
-  title: "Hari Haran A | Full Stack Developer • Software Engineer • Data Analyst",
+  title: "HARI HARAN A | Full Stack Developer • Software Engineer • Data Analyst",
   description:
-    "Hari Haran A — Full Stack Developer and Software Engineer specializing in Java, Spring Boot, React.js, Python, REST APIs, microservices, data analytics, and high-performance digital architectures.",
+    "Hari Haran A — Full Stack Developer, Software Engineer, Data Analyst, and Graphic Designer specializing in Java, Spring Boot, React.js, TypeScript, Python, Microservices, and scalable modern web platforms.",
   keywords: [
     "Hari Haran A",
     "Full Stack Developer",
     "Software Engineer",
-    "React Developer",
-    "Java Developer",
-    "Spring Boot",
-    "Python Developer",
     "Data Analyst",
     "Graphic Designer",
+    "Java Developer",
+    "Spring Boot",
+    "React.js Developer",
+    "TypeScript",
+    "Python Developer",
     "Microservices",
     "REST APIs",
-    "Enterprise Web Development",
-    "SEO & Digital Marketing",
-    "Dindigul Tamil Nadu",
-    "Techzon Wide",
+    "PostgreSQL",
+    "MongoDB",
     "KIEYVERSE",
+    "Techzon Wide",
+    "Dot Com Infoway",
+    "Enterprise Software Architecture",
   ],
   authors: [{ name: "Hari Haran A", url: "https://github.com/Hari-Haran-A-07" }],
   creator: "Hari Haran A",
@@ -38,10 +52,10 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: "https://hari-haran.dev",
-    title: "Hari Haran A | Full Stack Developer • Software Engineer",
+    title: "HARI HARAN A | Full Stack Developer • Software Engineer",
     description:
-      "Enterprise personal portfolio of Hari Haran A. Full Stack Developer, Software Engineer, Data Analyst, and Graphic Designer.",
-    siteName: "Hari Haran A Portfolio",
+      "Full Stack Developer & Software Engineer architecting enterprise web platforms, high-throughput microservices, and modern UI systems.",
+    siteName: "Hari Haran A — Developer Portfolio",
     images: [
       {
         url: "/assets/certificates/dci-certificate.png",
@@ -53,9 +67,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Hari Haran A | Full Stack Developer • Software Engineer",
+    title: "HARI HARAN A | Full Stack Developer • Software Engineer",
     description:
-      "Building scalable digital experiences across software engineering, full-stack development, data, design and modern web technologies.",
+      "Engineer + Builder + Analyst + Designer. Building resilient digital systems at enterprise scale.",
   },
   robots: {
     index: true,
@@ -68,13 +82,13 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const jsonLd = {
+  const jsonLdPerson = {
     "@context": "https://schema.org",
     "@type": "Person",
     name: "Hari Haran A",
-    jobTitle: "Full Stack Developer",
+    jobTitle: "Full Stack Developer & Software Engineer",
     description:
-      "Full Stack Developer and Software Engineer specializing in Java, Spring Boot, React.js, Python, REST APIs, microservices, and enterprise data architectures.",
+      "Full Stack Developer, Software Engineer, Data Analyst, and Graphic Designer specializing in Java, Spring Boot, React.js, TypeScript, Python, microservices, and enterprise web architecture.",
     email: "suryahari971@gmail.com",
     address: {
       "@type": "PostalAddress",
@@ -85,6 +99,7 @@ export default function RootLayout({
     sameAs: [
       "https://www.linkedin.com/in/ahari-haran07",
       "https://github.com/Hari-Haran-A-07",
+      "https://github.com/Hari-Haran-A-07/HARIHARAN.A-FULL-STACK-WEBDEVELOPER",
       "https://github.com/Hari-Haran-A-07/kiey-verse.in",
       "https://github.com/Hari-Haran-A-07/Lux.raw",
       "https://github.com/Hari-Haran-A-07/Tech.lms",
@@ -99,9 +114,10 @@ export default function RootLayout({
       "Java",
       "Spring Boot",
       "React.js",
+      "TypeScript",
       "Python",
       "RESTful APIs",
-      "Microservices",
+      "Microservices Architecture",
       "MongoDB",
       "MySQL",
       "PostgreSQL",
@@ -111,19 +127,36 @@ export default function RootLayout({
     ],
   };
 
+  const jsonLdWebSite = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Hari Haran A — Developer Portfolio",
+    url: "https://hari-haran.dev",
+    author: {
+      "@type": "Person",
+      name: "Hari Haran A",
+    },
+  };
+
   return (
     <html lang="en" className="dark scroll-smooth">
       <head>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdPerson) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdWebSite) }}
         />
       </head>
-      <body className={`${inter.variable} font-sans bg-black text-[#F5F5F5] antialiased selection:bg-[#A100FF] selection:text-white`}>
+      <body
+        className={`${inter.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} font-sans bg-[#0A0A0A] text-[#F7F7F5] antialiased selection:bg-[#A100FF] selection:text-white`}
+      >
         {/* Skip to main content for accessibility */}
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-[#A100FF] focus:text-white focus:rounded focus:outline-none focus:ring-2 focus:ring-white"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[99999] focus:px-4 focus:py-2 focus:bg-[#A100FF] focus:text-white focus:font-mono focus:text-xs focus:rounded focus:outline-none focus:ring-2 focus:ring-white"
         >
           Skip to main content
         </a>

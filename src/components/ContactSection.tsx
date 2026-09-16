@@ -1,20 +1,21 @@
 "use client";
 
 import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   Mail,
   Linkedin,
   Github,
-  FileText,
+  Download,
   Send,
   Sparkles,
-  MapPin,
   CheckCircle2,
-  AlertCircle,
+  Copy,
+  Check,
   ArrowUpRight,
+  ShieldCheck,
+  Terminal,
 } from "lucide-react";
-import confetti from "canvas-confetti";
 import { profileData } from "@/data/portfolioData";
 
 interface ContactSectionProps {
@@ -28,301 +29,230 @@ export default function ContactSection({ onOpenResume }: ContactSectionProps) {
     subject: "",
     message: "",
   });
-
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [copied, setCopied] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const validate = () => {
-    const errs: Record<string, string> = {};
-    if (!formData.name.trim()) errs.name = "Full name is required";
-    if (!formData.email.trim()) {
-      errs.email = "Email address is required";
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      errs.email = "Please enter a valid email address";
-    }
-    if (!formData.subject.trim()) errs.subject = "Subject is required";
-    if (!formData.message.trim()) {
-      errs.message = "Message is required";
-    } else if (formData.message.trim().length < 10) {
-      errs.message = "Message must be at least 10 characters";
-    }
-    return errs;
+  const handleCopyEmail = () => {
+    navigator.clipboard.writeText(profileData.email);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2500);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const validationErrors = validate();
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-      return;
-    }
+    if (!formData.name || !formData.email || !formData.message) return;
 
-    setErrors({});
     setIsSubmitting(true);
 
-    // Simulate enterprise dispatch & trigger mailto fallback
+    // Form submission action - construct mailto URL with parameters as robust zero-backend dispatch
+    const subject = encodeURIComponent(formData.subject || `Inquiry from ${formData.name}`);
+    const body = encodeURIComponent(
+      `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
+    );
+    const mailtoUrl = `mailto:${profileData.email}?subject=${subject}&body=${body}`;
+
     setTimeout(() => {
       setIsSubmitting(false);
-      setIsSubmitted(true);
-      
-      try {
-        confetti({
-          particleCount: 80,
-          spread: 70,
-          origin: { y: 0.8 },
-          colors: ["#A100FF", "#7C3AED", "#FFFFFF", "#C084FC"],
-        });
-      } catch (err) {
-        // Confetti fallback
-      }
-
-      // Open email client with pre-filled message
-      const mailtoUrl = `mailto:${profileData.email}?subject=${encodeURIComponent(
-        `[Portfolio Inquiry] ${formData.subject}`
-      )}&body=${encodeURIComponent(
-        `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`
-      )}`;
-      window.open(mailtoUrl, "_blank");
-    }, 900);
+      setSubmitted(true);
+      window.location.href = mailtoUrl;
+    }, 600);
   };
 
   return (
-    <section id="contact" className="relative py-28 px-6 md:px-12 bg-black border-t border-white/10">
-      {/* Subtle Background Glow */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-t from-[#A100FF]/15 via-transparent to-transparent rounded-full blur-[150px] pointer-events-none" />
-
+    <section id="contact" className="relative py-28 px-6 md:px-12 bg-[#080808] border-t border-white/10">
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Section Header */}
         <div className="flex flex-col space-y-4 max-w-3xl mb-16">
           <div className="flex items-center gap-2 text-xs font-mono text-[#A100FF] uppercase tracking-widest">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>11 / INITIATE ENGAGEMENT</span>
+            <span>07 / ENGAGEMENT & DISPATCH</span>
           </div>
-          <h2 className="text-4xl sm:text-6xl md:text-7xl font-black tracking-tight text-white uppercase leading-[0.95]">
-            LET&apos;S BUILD
+
+          <h2 className="font-heading text-3xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white uppercase leading-[1.02]">
+            LET&apos;S BUILD SOMETHING
             <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-neutral-300 to-neutral-500">
-              WHAT&apos;S NEXT.
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-neutral-200 to-[#A100FF]">
+              THAT MATTERS.
             </span>
           </h2>
+
           <p className="text-neutral-400 text-base sm:text-lg leading-relaxed pt-2">
-            Available for Senior Full Stack roles, Microservices Engineering, Distributed Data Systems,
-            and high-impact technical consulting.
+            Open for enterprise engineering opportunities, technical challenges, and collaborative digital
+            systems architecture.
           </p>
+
+          {/* Availability Badges */}
+          <div className="flex flex-wrap gap-2 pt-3">
+            <span className="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 font-mono text-xs text-emerald-400 font-bold uppercase flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              FULL-TIME ROLES
+            </span>
+            <span className="px-3 py-1 rounded-full bg-[#A100FF]/15 border border-[#A100FF]/30 font-mono text-xs text-[#C084FC] uppercase">
+              INTERNSHIPS
+            </span>
+            <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 font-mono text-xs text-neutral-300 uppercase">
+              FREELANCE
+            </span>
+            <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 font-mono text-xs text-neutral-300 uppercase">
+              COLLABORATION
+            </span>
+          </div>
         </div>
 
-        {/* Contact Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-          {/* Left Direct Channels */}
-          <div className="lg:col-span-5 space-y-8">
-            {/* Identity Card */}
-            <div className="p-8 rounded-2xl bg-gradient-to-b from-[#141414] via-[#0A0A0A] to-[#060606] border border-white/15 space-y-6 shadow-2xl">
-              <div>
-                <span className="font-mono text-xs text-[#A100FF] uppercase tracking-wider block mb-1">
-                  DIRECT CONTACT CHANNEL
+        {/* Contact Split Container */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-stretch">
+          {/* Left Direct Channels & Identity */}
+          <div className="lg:col-span-5 flex flex-col justify-between space-y-6">
+            <div className="p-8 rounded-2xl bg-[#111111] border border-white/10 space-y-6 shadow-2xl">
+              <div className="space-y-2">
+                <span className="font-mono text-xs uppercase tracking-widest text-[#A100FF] font-bold">
+                  DIRECT CHANNELS
                 </span>
-                <h3 className="text-2xl font-bold text-white uppercase tracking-tight">
-                  {profileData.name}
+                <h3 className="font-heading text-xl font-bold text-white uppercase">
+                  GET IN TOUCH
                 </h3>
-                <p className="font-mono text-xs text-neutral-400 uppercase tracking-wide mt-0.5">
-                  Full Stack Developer • Software Engineer
-                </p>
               </div>
 
-              <div className="space-y-4 text-xs sm:text-sm font-mono text-neutral-300">
-                <a
-                  href={`mailto:${profileData.email}`}
-                  className="flex items-center gap-3 p-3 rounded-lg bg-neutral-900/80 border border-white/5 hover:border-[#A100FF] transition-all group"
+              {/* Copy Email Button */}
+              <div className="p-4 rounded-xl bg-black/60 border border-white/10 flex items-center justify-between gap-3">
+                <div className="truncate">
+                  <div className="text-[10px] font-mono text-neutral-500 uppercase">PRIMARY EMAIL</div>
+                  <div className="font-mono text-xs text-white truncate font-bold">{profileData.email}</div>
+                </div>
+                <button
+                  onClick={handleCopyEmail}
+                  className="px-3 py-2 rounded-lg bg-neutral-900 border border-white/10 hover:border-[#A100FF] text-neutral-300 hover:text-white font-mono text-xs uppercase flex items-center gap-1.5 transition-all shrink-0"
                 >
-                  <Mail className="w-4 h-4 text-[#A100FF] shrink-0" />
-                  <span className="group-hover:text-white truncate">{profileData.email}</span>
-                  <ArrowUpRight className="w-3.5 h-3.5 text-neutral-500 group-hover:text-[#A100FF] ml-auto shrink-0" />
+                  {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5 text-[#A100FF]" />}
+                  <span>{copied ? "COPIED" : "COPY"}</span>
+                </button>
+              </div>
+
+              {/* Social Buttons */}
+              <div className="grid grid-cols-2 gap-3 pt-2">
+                <a
+                  href={profileData.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-3 rounded-xl bg-black/60 border border-white/10 hover:border-[#A100FF] text-white font-mono text-xs font-bold uppercase flex items-center justify-between transition-all"
+                >
+                  <div className="flex items-center gap-2">
+                    <Github className="w-4 h-4 text-[#A100FF]" />
+                    <span>GITHUB</span>
+                  </div>
+                  <ArrowUpRight className="w-3.5 h-3.5 opacity-60" />
                 </a>
 
                 <a
                   href={profileData.linkedin}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-3 p-3 rounded-lg bg-neutral-900/80 border border-white/5 hover:border-[#A100FF] transition-all group"
+                  className="p-3 rounded-xl bg-black/60 border border-white/10 hover:border-[#A100FF] text-white font-mono text-xs font-bold uppercase flex items-center justify-between transition-all"
                 >
-                  <Linkedin className="w-4 h-4 text-[#A100FF] shrink-0" />
-                  <span className="group-hover:text-white truncate">linkedin.com/in/ahari-haran07</span>
-                  <ArrowUpRight className="w-3.5 h-3.5 text-neutral-500 group-hover:text-[#A100FF] ml-auto shrink-0" />
+                  <div className="flex items-center gap-2">
+                    <Linkedin className="w-4 h-4 text-[#38BDF8]" />
+                    <span>LINKEDIN</span>
+                  </div>
+                  <ArrowUpRight className="w-3.5 h-3.5 opacity-60" />
                 </a>
-
-                <a
-                  href={profileData.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-3 p-3 rounded-lg bg-neutral-900/80 border border-white/5 hover:border-[#A100FF] transition-all group"
-                >
-                  <Github className="w-4 h-4 text-[#A100FF] shrink-0" />
-                  <span className="group-hover:text-white truncate">github.com/Hari-Haran-A-07</span>
-                  <ArrowUpRight className="w-3.5 h-3.5 text-neutral-500 group-hover:text-[#A100FF] ml-auto shrink-0" />
-                </a>
-
-                <div className="flex items-center gap-3 p-3 rounded-lg bg-neutral-900/40 border border-white/5 text-neutral-400">
-                  <MapPin className="w-4 h-4 text-[#A100FF] shrink-0" />
-                  <span>{profileData.location}</span>
-                </div>
               </div>
 
-              <div className="pt-2">
-                <button
-                  onClick={onOpenResume}
-                  className="w-full py-3.5 bg-gradient-to-r from-[#A100FF] to-[#7C3AED] hover:from-[#9000E6] hover:to-[#6D28D9] text-white font-mono font-bold text-xs uppercase tracking-wider rounded-lg flex items-center justify-center gap-2 shadow-lg transition-all"
-                >
-                  <FileText className="w-4 h-4" />
-                  <span>DOWNLOAD OFFICIAL RESUME</span>
-                </button>
-              </div>
+              <button
+                onClick={onOpenResume}
+                className="w-full py-3 rounded-xl bg-neutral-900 border border-white/15 text-white font-mono text-xs font-bold uppercase tracking-wider flex items-center justify-center gap-2 hover:border-[#A100FF] hover:bg-[#181818] transition-all"
+              >
+                <Download className="w-4 h-4 text-[#A100FF]" />
+                <span>DOWNLOAD COMPLETE RESUME (PDF)</span>
+              </button>
+            </div>
+
+            {/* Verification Guarantee */}
+            <div className="p-5 rounded-xl bg-gradient-to-r from-[#141414] to-[#0A0A0A] border border-white/10 flex items-center gap-3 text-xs font-mono text-neutral-400">
+              <ShieldCheck className="w-5 h-5 text-emerald-400 shrink-0" />
+              <span>Prompt response guaranteed within 24 hours for all professional inquiries.</span>
             </div>
           </div>
 
-          {/* Right Interactive Message Form */}
-          <div className="lg:col-span-7">
-            <div className="p-8 sm:p-10 rounded-2xl bg-gradient-to-b from-[#121212] via-[#0A0A0A] to-[#060606] border border-white/15 shadow-2xl">
-              <div className="flex items-center justify-between pb-6 mb-6 border-b border-white/10">
-                <h3 className="font-mono text-sm font-bold text-white uppercase tracking-wider">
-                  SEND DIRECT DISPATCH
-                </h3>
-                <span className="font-mono text-[11px] text-neutral-400">
-                  GUARANTEED RESPONSE &lt; 24H
+          {/* Right Contact Dispatch Form */}
+          <div className="lg:col-span-7 p-8 sm:p-10 rounded-2xl bg-[#111111] border border-white/10 shadow-2xl flex flex-col justify-between">
+            <form onSubmit={handleSubmit} className="space-y-5">
+              <div className="flex items-center justify-between pb-3 border-b border-white/5">
+                <span className="font-mono text-xs text-[#A100FF] uppercase tracking-widest font-bold">
+                  MESSAGE DISPATCH FORM
                 </span>
+                <span className="text-[11px] font-mono text-neutral-500">DIRECT TRANSMISSION</span>
               </div>
 
-              {isSubmitted ? (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="py-12 flex flex-col items-center text-center space-y-4"
-                >
-                  <div className="w-16 h-16 rounded-full bg-emerald-500/15 border border-emerald-500/40 flex items-center justify-center text-emerald-400">
-                    <CheckCircle2 className="w-8 h-8" />
-                  </div>
-                  <h4 className="text-2xl font-bold text-white uppercase">
-                    MESSAGE PREPARED & DISPATCHED
-                  </h4>
-                  <p className="text-sm text-neutral-400 max-w-md">
-                    Thank you for reaching out, {formData.name}. Your message has been formatted for
-                    immediate review. You may also contact me directly at suryahari971@gmail.com.
-                  </p>
-                  <button
-                    onClick={() => {
-                      setIsSubmitted(false);
-                      setFormData({ name: "", email: "", subject: "", message: "" });
-                    }}
-                    className="mt-4 px-6 py-2.5 rounded-lg bg-neutral-900 border border-white/15 text-xs font-mono uppercase text-white hover:bg-neutral-800"
-                  >
-                    SEND ANOTHER MESSAGE
-                  </button>
-                </motion.div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  {/* Name & Email Row */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                    <div className="space-y-1.5">
-                      <label className="font-mono text-[11px] uppercase tracking-wider text-neutral-300 block">
-                        YOUR NAME <span className="text-[#A100FF]">*</span>
-                      </label>
-                      <input
-                        type="text"
-                        value={formData.name}
-                        onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        placeholder="e.g. John Doe / Tech Recruiter"
-                        className={`w-full px-4 py-3 rounded-lg bg-black/60 border text-sm text-white placeholder-neutral-600 focus:outline-none focus:ring-2 focus:ring-[#A100FF] transition-all ${
-                          errors.name ? "border-rose-500/80" : "border-white/10"
-                        }`}
-                      />
-                      {errors.name && (
-                        <p className="text-[11px] font-mono text-rose-400 flex items-center gap-1 mt-1">
-                          <AlertCircle className="w-3 h-3" /> {errors.name}
-                        </p>
-                      )}
-                    </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="space-y-1.5">
+                  <label className="font-mono text-xs text-neutral-400 uppercase">Your Name</label>
+                  <input
+                    type="text"
+                    required
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    placeholder="e.g. John Doe"
+                    className="w-full px-4 py-3 rounded-lg bg-black/70 border border-white/10 font-mono text-xs text-white placeholder-neutral-600 focus:outline-none focus:border-[#A100FF] transition-colors"
+                  />
+                </div>
 
-                    <div className="space-y-1.5">
-                      <label className="font-mono text-[11px] uppercase tracking-wider text-neutral-300 block">
-                        EMAIL ADDRESS <span className="text-[#A100FF]">*</span>
-                      </label>
-                      <input
-                        type="email"
-                        value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        placeholder="name@company.com"
-                        className={`w-full px-4 py-3 rounded-lg bg-black/60 border text-sm text-white placeholder-neutral-600 focus:outline-none focus:ring-2 focus:ring-[#A100FF] transition-all ${
-                          errors.email ? "border-rose-500/80" : "border-white/10"
-                        }`}
-                      />
-                      {errors.email && (
-                        <p className="text-[11px] font-mono text-rose-400 flex items-center gap-1 mt-1">
-                          <AlertCircle className="w-3 h-3" /> {errors.email}
-                        </p>
-                      )}
-                    </div>
-                  </div>
+                <div className="space-y-1.5">
+                  <label className="font-mono text-xs text-neutral-400 uppercase">Your Email</label>
+                  <input
+                    type="email"
+                    required
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    placeholder="e.g. john@company.com"
+                    className="w-full px-4 py-3 rounded-lg bg-black/70 border border-white/10 font-mono text-xs text-white placeholder-neutral-600 focus:outline-none focus:border-[#A100FF] transition-colors"
+                  />
+                </div>
+              </div>
 
-                  {/* Subject */}
-                  <div className="space-y-1.5">
-                    <label className="font-mono text-[11px] uppercase tracking-wider text-neutral-300 block">
-                      SUBJECT / ENGAGEMENT TYPE <span className="text-[#A100FF]">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      value={formData.subject}
-                      onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                      placeholder="e.g. Full Stack Engineering Role / Project Collaboration"
-                      className={`w-full px-4 py-3 rounded-lg bg-black/60 border text-sm text-white placeholder-neutral-600 focus:outline-none focus:ring-2 focus:ring-[#A100FF] transition-all ${
-                        errors.subject ? "border-rose-500/80" : "border-white/10"
-                      }`}
-                    />
-                    {errors.subject && (
-                      <p className="text-[11px] font-mono text-rose-400 flex items-center gap-1 mt-1">
-                        <AlertCircle className="w-3 h-3" /> {errors.subject}
-                      </p>
-                    )}
-                  </div>
+              <div className="space-y-1.5">
+                <label className="font-mono text-xs text-neutral-400 uppercase">Subject</label>
+                <input
+                  type="text"
+                  value={formData.subject}
+                  onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                  placeholder="e.g. Full-Stack Software Engineering Role / Project Collaboration"
+                  className="w-full px-4 py-3 rounded-lg bg-black/70 border border-white/10 font-mono text-xs text-white placeholder-neutral-600 focus:outline-none focus:border-[#A100FF] transition-colors"
+                />
+              </div>
 
-                  {/* Message */}
-                  <div className="space-y-1.5">
-                    <label className="font-mono text-[11px] uppercase tracking-wider text-neutral-300 block">
-                      MESSAGE DETAILS <span className="text-[#A100FF]">*</span>
-                    </label>
-                    <textarea
-                      rows={5}
-                      value={formData.message}
-                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      placeholder="Describe your organization, project scope, role requirements, or technical objectives..."
-                      className={`w-full px-4 py-3 rounded-lg bg-black/60 border text-sm text-white placeholder-neutral-600 focus:outline-none focus:ring-2 focus:ring-[#A100FF] transition-all resize-none ${
-                        errors.message ? "border-rose-500/80" : "border-white/10"
-                      }`}
-                    />
-                    {errors.message && (
-                      <p className="text-[11px] font-mono text-rose-400 flex items-center gap-1 mt-1">
-                        <AlertCircle className="w-3 h-3" /> {errors.message}
-                      </p>
-                    )}
-                  </div>
+              <div className="space-y-1.5">
+                <label className="font-mono text-xs text-neutral-400 uppercase">Message</label>
+                <textarea
+                  required
+                  rows={4}
+                  value={formData.message}
+                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  placeholder="Describe your engineering project, timeline, or open role requirements..."
+                  className="w-full px-4 py-3 rounded-lg bg-black/70 border border-white/10 font-mono text-xs text-white placeholder-neutral-600 focus:outline-none focus:border-[#A100FF] transition-colors resize-none"
+                />
+              </div>
 
-                  {/* Submit Button */}
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full py-4 bg-white text-black hover:bg-neutral-200 font-mono font-bold text-xs uppercase tracking-wider rounded-lg flex items-center justify-center gap-2 transition-all shadow-lg hover:shadow-[#A100FF]/25 disabled:opacity-50"
-                  >
-                    {isSubmitting ? (
-                      <div className="w-4 h-4 border-2 border-black border-t-transparent rounded-full animate-spin" />
-                    ) : (
-                      <>
-                        <Send className="w-4 h-4 text-[#7C3AED]" />
-                        <span>DISPATCH INQUIRY VIA EMAIL</span>
-                      </>
-                    )}
-                  </button>
-                </form>
-              )}
-            </div>
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full py-4 rounded-xl bg-gradient-to-r from-[#A100FF] to-[#7C3AED] hover:from-[#B026FF] hover:to-[#8B5CF6] text-white font-mono font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-[#A100FF]/25 active:scale-[0.99] transition-all disabled:opacity-50"
+              >
+                {isSubmitting ? (
+                  <span>DISPATCHING...</span>
+                ) : submitted ? (
+                  <span className="flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 text-white" />
+                    DISPATCH COMPLETE (MAIL CLIENT OPENED)
+                  </span>
+                ) : (
+                  <span className="flex items-center gap-2">
+                    <Send className="w-4 h-4" />
+                    DISPATCH MESSAGE
+                  </span>
+                )}
+              </button>
+            </form>
           </div>
         </div>
       </div>

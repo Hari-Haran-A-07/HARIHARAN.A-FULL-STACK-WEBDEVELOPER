@@ -6,6 +6,8 @@ import {
   ArrowDown,
   ArrowUpRight,
   Download,
+  Github,
+  Linkedin,
   Terminal,
   Code2,
   Database,
@@ -13,6 +15,7 @@ import {
   Layers,
   Sparkles,
   ShieldCheck,
+  Activity,
 } from "lucide-react";
 import { profileData } from "@/data/portfolioData";
 
@@ -33,7 +36,7 @@ export default function Hero({ onOpenResume }: HeroProps) {
   const handleScrollTo = (id: string) => {
     const target = document.getElementById(id);
     if (target) {
-      const headerOffset = 80;
+      const headerOffset = 75;
       const elementPosition = target.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
       window.scrollTo({
@@ -46,16 +49,20 @@ export default function Hero({ onOpenResume }: HeroProps) {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center justify-center pt-28 pb-16 px-6 md:px-12 overflow-hidden bg-black"
+      className="relative min-h-screen flex items-center justify-center pt-28 pb-16 px-6 md:px-12 overflow-hidden bg-[#0A0A0A]"
     >
       {/* Background Architectural Grid & Subtle Laser Light */}
       <div className="absolute inset-0 bg-grid opacity-60 pointer-events-none" />
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-br from-[#A100FF]/15 via-[#7C3AED]/05 to-transparent rounded-full blur-[140px] pointer-events-none" />
 
-      {/* Floating subtle data nodes */}
-      <div className="absolute top-32 right-12 hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-neutral-950/80 backdrop-blur-md text-[11px] font-mono text-neutral-400">
-        <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-        <span>STATUS: PRODUCTION READY</span>
+      {/* Floating System Coordinates & Latency Indicator */}
+      <div className="absolute top-28 right-10 hidden lg:flex items-center gap-3 px-3.5 py-1.5 rounded-full border border-white/10 bg-[#111111]/80 backdrop-blur-md text-[11px] font-mono text-neutral-400 select-none">
+        <div className="flex items-center gap-1.5">
+          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+          <span className="text-white font-bold">SYSTEM: ONLINE</span>
+        </div>
+        <span className="text-neutral-600">|</span>
+        <span className="text-[#C084FC]">{profileData.coordinates}</span>
       </div>
 
       <div className="max-w-7xl w-full mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center relative z-10">
@@ -73,15 +80,15 @@ export default function Hero({ onOpenResume }: HeroProps) {
               {profileData.name}
             </span>
             <span className="text-neutral-600 font-mono text-xs">/</span>
-            <span className="font-mono text-xs text-neutral-400">BANGALORE • DINDIGUL</span>
+            <span className="font-mono text-xs text-neutral-400">ENGINEER • BUILDER • ANALYST • DESIGNER</span>
           </div>
 
           {/* Primary Editorial Headline */}
           <div className="space-y-2">
-            <h1 className="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tighter text-white uppercase leading-[0.95]">
+            <h1 className="font-heading text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tighter text-white uppercase leading-[0.95]">
               FULL STACK
               <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-neutral-200 to-neutral-500">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-neutral-200 to-neutral-400">
                 DEVELOPER
               </span>
             </h1>
@@ -104,35 +111,49 @@ export default function Hero({ onOpenResume }: HeroProps) {
             </div>
           </div>
 
-          {/* Supporting Statement */}
-          <p className="text-base sm:text-lg text-neutral-400 max-w-xl font-normal leading-relaxed">
+          {/* Supporting Positioning Statement */}
+          <p className="text-base sm:text-lg text-neutral-300 max-w-xl font-normal leading-relaxed">
             {profileData.statement}
           </p>
 
-          {/* CTA Group */}
-          <div className="flex flex-wrap items-center gap-4 pt-2">
+          {/* CTAs: VIEW WORK | GITHUB | LINKEDIN | DOWNLOAD RESUME */}
+          <div className="flex flex-wrap items-center gap-3.5 pt-2">
             <button
               onClick={() => handleScrollTo("projects")}
-              className="group relative inline-flex items-center gap-3 px-6 py-3.5 bg-white text-black font-mono font-bold text-xs sm:text-sm uppercase tracking-wider rounded transition-all hover:bg-[#F5F5F5] hover:shadow-[0_0_30px_rgba(161,0,255,0.35)] active:scale-[0.98]"
+              className="group relative inline-flex items-center gap-2.5 px-6 py-3.5 bg-white text-black font-mono font-bold text-xs sm:text-sm uppercase tracking-wider rounded-lg transition-all hover:bg-[#F7F7F5] hover:shadow-[0_0_30px_rgba(161,0,255,0.35)] active:scale-[0.98]"
             >
-              <span>VIEW MY WORK</span>
+              <span>VIEW WORK</span>
               <ArrowDown className="w-4 h-4 group-hover:translate-y-1 transition-transform text-[#7C3AED]" />
             </button>
 
+            <a
+              href={profileData.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-2 px-5 py-3.5 bg-[#111111] border border-white/15 text-white font-mono font-bold text-xs sm:text-sm uppercase tracking-wider rounded-lg hover:border-[#A100FF] hover:bg-[#1A1A1A] transition-all active:scale-[0.98]"
+            >
+              <Github className="w-4 h-4 text-[#A100FF]" />
+              <span>GITHUB</span>
+              <ArrowUpRight className="w-3.5 h-3.5 opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+            </a>
+
+            <a
+              href={profileData.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-2 px-5 py-3.5 bg-[#111111] border border-white/15 text-white font-mono font-bold text-xs sm:text-sm uppercase tracking-wider rounded-lg hover:border-[#A100FF] hover:bg-[#1A1A1A] transition-all active:scale-[0.98]"
+            >
+              <Linkedin className="w-4 h-4 text-[#38BDF8]" />
+              <span>LINKEDIN</span>
+              <ArrowUpRight className="w-3.5 h-3.5 opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+            </a>
+
             <button
               onClick={onOpenResume}
-              className="group inline-flex items-center gap-2.5 px-6 py-3.5 bg-neutral-900 border border-white/15 text-white font-mono font-bold text-xs sm:text-sm uppercase tracking-wider rounded hover:border-[#A100FF] hover:bg-neutral-800 transition-all active:scale-[0.98]"
+              className="group inline-flex items-center gap-2 px-5 py-3.5 bg-[#111111] border border-white/15 text-neutral-200 font-mono font-bold text-xs sm:text-sm uppercase tracking-wider rounded-lg hover:border-[#A100FF] hover:text-white hover:bg-[#1A1A1A] transition-all active:scale-[0.98]"
             >
               <Download className="w-4 h-4 text-[#A100FF] group-hover:-translate-y-0.5 transition-transform" />
               <span>DOWNLOAD RESUME</span>
-            </button>
-
-            <button
-              onClick={() => handleScrollTo("contact")}
-              className="inline-flex items-center gap-1.5 px-4 py-3.5 text-neutral-400 hover:text-white font-mono text-xs uppercase tracking-wider transition-colors"
-            >
-              <span>LET&apos;S CONNECT</span>
-              <ArrowUpRight className="w-3.5 h-3.5 text-[#A100FF]" />
             </button>
           </div>
 
@@ -151,7 +172,7 @@ export default function Hero({ onOpenResume }: HeroProps) {
                 99.9%
               </div>
               <div className="text-[11px] font-mono text-neutral-400 uppercase tracking-wide">
-                Availability
+                Platform Uptime
               </div>
             </div>
             <div>
@@ -176,7 +197,7 @@ export default function Hero({ onOpenResume }: HeroProps) {
           <div className="absolute -inset-1 bg-gradient-to-r from-[#A100FF]/30 to-[#7C3AED]/20 rounded-2xl blur-xl opacity-75" />
 
           {/* Editorial Card Frame */}
-          <div className="relative rounded-xl bg-gradient-to-b from-[#141414] via-[#0A0A0A] to-[#050505] border border-white/15 p-6 sm:p-8 overflow-hidden shadow-2xl">
+          <div className="relative rounded-2xl bg-gradient-to-b from-[#141414] via-[#0D0D0D] to-[#0A0A0A] border border-white/15 p-6 sm:p-8 overflow-hidden shadow-2xl">
             {/* Top Card Bar */}
             <div className="flex items-center justify-between pb-6 border-b border-white/10">
               <div className="flex items-center gap-2">
@@ -208,22 +229,22 @@ export default function Hero({ onOpenResume }: HeroProps) {
                 </div>
 
                 {/* Floating Orbit Nodes */}
-                <div className="absolute -top-2 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded bg-neutral-900 border border-[#A100FF]/50 text-[9px] font-mono text-white">
+                <div className="absolute -top-2 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded bg-neutral-900 border border-[#A100FF]/50 text-[9px] font-mono text-white shadow-md">
                   JAVA / SPRING
                 </div>
-                <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded bg-neutral-900 border border-white/20 text-[9px] font-mono text-neutral-300">
+                <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded bg-neutral-900 border border-white/20 text-[9px] font-mono text-neutral-300 shadow-md">
                   REACT / NEXT
                 </div>
-                <div className="absolute top-1/2 -left-3 -translate-y-1/2 px-2 py-0.5 rounded bg-neutral-900 border border-white/20 text-[9px] font-mono text-neutral-300">
+                <div className="absolute top-1/2 -left-3 -translate-y-1/2 px-2 py-0.5 rounded bg-neutral-900 border border-white/20 text-[9px] font-mono text-neutral-300 shadow-md">
                   SQL
                 </div>
-                <div className="absolute top-1/2 -right-3 -translate-y-1/2 px-2 py-0.5 rounded bg-neutral-900 border border-white/20 text-[9px] font-mono text-neutral-300">
+                <div className="absolute top-1/2 -right-3 -translate-y-1/2 px-2 py-0.5 rounded bg-neutral-900 border border-white/20 text-[9px] font-mono text-neutral-300 shadow-md">
                   PYTHON
                 </div>
               </div>
 
               {/* Identity Details */}
-              <h3 className="font-mono text-lg sm:text-xl font-bold text-white tracking-tight uppercase">
+              <h3 className="font-heading text-xl sm:text-2xl font-bold text-white tracking-tight uppercase">
                 HARI HARAN A
               </h3>
               <p className="text-xs font-mono text-[#A100FF] uppercase tracking-wider mt-1">
@@ -236,19 +257,19 @@ export default function Hero({ onOpenResume }: HeroProps) {
 
             {/* Bottom Stack Badges */}
             <div className="pt-4 border-t border-white/10 grid grid-cols-2 gap-2 text-[11px] font-mono">
-              <div className="flex items-center gap-2 p-2 rounded bg-neutral-900/60 border border-white/5">
+              <div className="flex items-center gap-2 p-2 rounded-lg bg-neutral-900/60 border border-white/5">
                 <Code2 className="w-3.5 h-3.5 text-[#A100FF]" />
                 <span className="text-neutral-300">Microservices</span>
               </div>
-              <div className="flex items-center gap-2 p-2 rounded bg-neutral-900/60 border border-white/5">
+              <div className="flex items-center gap-2 p-2 rounded-lg bg-neutral-900/60 border border-white/5">
                 <Database className="w-3.5 h-3.5 text-[#A100FF]" />
                 <span className="text-neutral-300">PostgreSQL / Mongo</span>
               </div>
-              <div className="flex items-center gap-2 p-2 rounded bg-neutral-900/60 border border-white/5">
+              <div className="flex items-center gap-2 p-2 rounded-lg bg-neutral-900/60 border border-white/5">
                 <Cpu className="w-3.5 h-3.5 text-[#A100FF]" />
                 <span className="text-neutral-300">Async Sockets</span>
               </div>
-              <div className="flex items-center gap-2 p-2 rounded bg-neutral-900/60 border border-white/5">
+              <div className="flex items-center gap-2 p-2 rounded-lg bg-neutral-900/60 border border-white/5">
                 <Layers className="w-3.5 h-3.5 text-[#A100FF]" />
                 <span className="text-neutral-300">UI/UX Systems</span>
               </div>

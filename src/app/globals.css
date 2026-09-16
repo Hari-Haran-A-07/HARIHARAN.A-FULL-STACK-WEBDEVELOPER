@@ -4,17 +4,19 @@
 
 :root {
   --font-inter: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-space-grotesk: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-jetbrains-mono: 'JetBrains Mono', monospace;
 }
 
 html {
   scroll-behavior: smooth;
   color-scheme: dark;
-  background-color: #000000;
+  background-color: #0A0A0A;
 }
 
 body {
-  color: #F5F5F5;
-  background: #000000;
+  color: #F7F7F5;
+  background: #0A0A0A;
   font-family: var(--font-inter);
   overflow-x: hidden;
   selection-background-color: #A100FF;
@@ -26,7 +28,7 @@ body {
   color: #FFFFFF;
 }
 
-/* Custom subtle scrollbar */
+/* Custom subtle dark scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -45,17 +47,24 @@ body {
   background: #7C3AED;
 }
 
-/* Subtle grid overlay */
+/* Background grid overlay */
 .bg-grid {
-  background-size: 40px 40px;
+  background-size: 48px 48px;
   background-image: 
     linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
 }
 
+.bg-grid-dense {
+  background-size: 24px 24px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+}
+
 /* Radial purple glow */
 .purple-radial-glow {
-  background: radial-gradient(circle at 50% 0%, rgba(161, 0, 255, 0.12) 0%, rgba(0, 0, 0, 0) 70%);
+  background: radial-gradient(circle at 50% 0%, rgba(161, 0, 255, 0.14) 0%, rgba(10, 10, 10, 0) 70%);
 }
 
 .purple-ambient-sphere {
@@ -63,7 +72,7 @@ body {
   width: 500px;
   height: 500px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(161, 0, 255, 0.08) 0%, rgba(124, 58, 237, 0.02) 50%, rgba(0,0,0,0) 70%);
+  background: radial-gradient(circle, rgba(161, 0, 255, 0.09) 0%, rgba(124, 58, 237, 0.02) 50%, rgba(0,0,0,0) 70%);
   filter: blur(80px);
   pointer-events: none;
 }
@@ -84,7 +93,7 @@ body {
 
 /* Glass panel */
 .glass-panel {
-  background: rgba(10, 10, 10, 0.75);
+  background: rgba(17, 17, 17, 0.75);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -92,17 +101,28 @@ body {
 
 /* Editorial typography display */
 .text-editorial-clamp {
-  font-size: clamp(2.5rem, 7vw, 7rem);
+  font-family: var(--font-space-grotesk), sans-serif;
+  font-size: clamp(2.5rem, 6.5vw, 6.5rem);
   line-height: 0.95;
   letter-spacing: -0.04em;
   font-weight: 800;
 }
 
 .text-title-clamp {
+  font-family: var(--font-space-grotesk), sans-serif;
   font-size: clamp(1.8rem, 4vw, 3.5rem);
   line-height: 1.05;
   letter-spacing: -0.03em;
   font-weight: 700;
+}
+
+/* Accessible focus ring */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #A100FF;
+  outline-offset: 2px;
 }
 
 /* Reduced motion support */

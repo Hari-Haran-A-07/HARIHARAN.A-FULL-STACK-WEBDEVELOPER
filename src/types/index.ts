@@ -5,6 +5,7 @@ export interface ProfileData {
   tagline: string;
   statement: string;
   location: string;
+  coordinates: string;
   email: string;
   phone?: string;
   linkedin: string;
@@ -32,6 +33,20 @@ export interface ExperienceItem {
   certificateUrl?: string;
 }
 
+export interface CaseStudySection {
+  overview: string;
+  problem: string;
+  solution: string;
+  designDecisions: string[];
+  architecture: string[];
+  technologyStack: { category: string; items: string[] }[];
+  developmentFeatures: string[];
+  challengesAndOptimizations: string[];
+  verifiedResults: string[];
+  githubUrl?: string;
+  liveDemoUrl?: string;
+}
+
 export interface ProjectItem {
   id: string;
   number: string;
@@ -51,20 +66,22 @@ export interface ProjectItem {
   liveDemoUrl?: string;
   badge?: string;
   gradient?: string;
+  caseStudy?: CaseStudySection;
 }
 
 export interface SkillNode {
   name: string;
-  level?: string;
+  category: string;
+  status: "PRIMARY" | "USED IN PROJECTS" | "WORKING KNOWLEDGE" | "EXPLORING";
+  projects: string[];
   icon?: string;
-  highlight?: boolean;
 }
 
 export interface SkillCategory {
   category: string;
   description: string;
-  skills: string[];
   accentColor: string;
+  skills: SkillNode[];
 }
 
 export interface CertificationItem {
@@ -97,9 +114,34 @@ export interface ArchitectureLayer {
   tech: string[];
   description: string;
   dataFlow: string;
+  keyResponsibilities: string[];
 }
 
 export interface NavItem {
+  number: string;
   label: string;
   href: string;
+}
+
+export interface GithubRepoItem {
+  id: number | string;
+  name: string;
+  fullName: string;
+  description: string;
+  language: string;
+  stars: number;
+  forks: number;
+  updatedAt: string;
+  htmlUrl: string;
+  homepage?: string | null;
+  category: "FULL STACK" | "FRONTEND" | "BACKEND" | "PYTHON" | "DATA" | "DESIGN" | "TOOLS";
+  topics: string[];
+  isFeatured?: boolean;
+}
+
+export interface GithubProfileStats {
+  publicRepos: number;
+  totalCommitsEst: string;
+  primaryLanguages: { name: string; percentage: number; color: string }[];
+  status: string;
 }
