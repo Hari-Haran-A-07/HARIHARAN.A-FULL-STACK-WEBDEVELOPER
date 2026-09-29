@@ -145,3 +145,43 @@ export interface GithubProfileStats {
   primaryLanguages: { name: string; percentage: number; color: string }[];
   status: string;
 }
+
+export interface VisualLabItem {
+  id: string;
+  title: string;
+  subtitle: string;
+  category: "GRAPHIC DESIGN" | "UI/UX SHADER" | "TYPOGRAPHY" | "DATA VIZ" | "BRANDING" | "MOTION 3D";
+  description: string;
+  tags: string[];
+  color: string;
+  accent: string;
+  previewGradient: string;
+  aspectRatio?: string;
+  specDetails?: {
+    tool: string;
+    aspect: string;
+    type: string;
+  };
+}
+
+export interface DesignDisciplineItem {
+  id: string;
+  number: string;
+  title: string;
+  shortDesc: string;
+  deliverables: string[];
+  tools: string[];
+  icon: string;
+  gradient: string;
+}
+
+export interface CreativeProcessStep {
+  step: string;
+  phase: string;
+  title: string;
+  description: string;
+  deliverables: string[];
+  tools: string[];
+  keyQuestion: string;
+}
+

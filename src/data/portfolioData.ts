@@ -10,7 +10,11 @@ import {
   NavItem,
   GithubRepoItem,
   GithubProfileStats,
+  VisualLabItem,
+  DesignDisciplineItem,
+  CreativeProcessStep,
 } from "@/types";
+
 
 export const profileData: ProfileData = {
   name: "HARI HARAN A",
@@ -34,13 +38,17 @@ export const profileData: ProfileData = {
 
 export const navItems: NavItem[] = [
   { number: "01", label: "HOME", href: "#hero" },
-  { number: "02", label: "ABOUT", href: "#about" },
-  { number: "03", label: "EXPERIENCE", href: "#experience" },
-  { number: "04", label: "SKILLS", href: "#skills" },
-  { number: "05", label: "PROJECTS", href: "#projects" },
+  { number: "02", label: "WORK", href: "#projects" },
+  { number: "03", label: "DISCIPLINES", href: "#disciplines" },
+  { number: "04", label: "PROCESS", href: "#process" },
+  { number: "05", label: "VISUAL LAB", href: "#visual-lab" },
   { number: "06", label: "GITHUB", href: "#github" },
-  { number: "07", label: "CONTACT", href: "#contact" },
+  { number: "07", label: "EXPERIENCE", href: "#experience" },
+  { number: "08", label: "SKILLS", href: "#skills" },
+  { number: "09", label: "ABOUT", href: "#about" },
+  { number: "10", label: "CONTACT", href: "#contact" },
 ];
+
 
 export const metricsData: MetricItem[] = [
   {
@@ -1143,3 +1151,405 @@ export const marqueeItems: string[] = [
   "•",
   "DOT COM INFOWAY",
 ];
+
+export const designDisciplinesData: DesignDisciplineItem[] = [
+  {
+    id: "brand-identity",
+    number: "01",
+    title: "Brand Identity & Systems",
+    shortDesc: "Vector monograms, comprehensive design guidelines, brand architecture, and cohesive cross-platform visual identities.",
+    deliverables: [
+      "Vector Logomarks & Monograms",
+      "Brand Guidelines & Standards",
+      "Color Palettes & Contrast Matrix",
+      "Typography Pairing Hierarchies",
+    ],
+    tools: ["Figma", "Adobe Illustrator", "Photoshop", "Vector Systems"],
+    icon: "Crown",
+    gradient: "from-purple-500/20 via-violet-500/10 to-transparent",
+  },
+  {
+    id: "graphic-design",
+    number: "02",
+    title: "Graphic Design & Art Direction",
+    shortDesc: "High-impact visual narratives, corporate marketing collaterals, digital promotional materials, and event branding.",
+    deliverables: [
+      "Marketing Collateral & Banners",
+      "Custom Digital Art & Iconography",
+      "Corporate Vector Assets",
+      "High-Resolution Print & Web Graphics",
+    ],
+    tools: ["Photoshop", "Illustrator", "InDesign", "Canva Pro"],
+    icon: "Palette",
+    gradient: "from-fuchsia-500/20 via-pink-500/10 to-transparent",
+  },
+  {
+    id: "ui-ux-design",
+    number: "03",
+    title: "UI/UX & Interaction Design",
+    shortDesc: "Pixel-perfect web and mobile interfaces, atomic design token libraries, user journey mapping, and WCAG AA accessibility.",
+    deliverables: [
+      "Atomic Design Systems in Figma",
+      "Interactive High-Fidelity Prototypes",
+      "User Journey & Empathy Maps",
+      "WCAG 2.1 AA Contrast Auditing",
+    ],
+    tools: ["Figma", "Framer", "FigJam", "Tailwind CSS"],
+    icon: "Layout",
+    gradient: "from-indigo-500/20 via-purple-500/10 to-transparent",
+  },
+  {
+    id: "web-design",
+    number: "04",
+    title: "Web Design & Creative Technology",
+    shortDesc: "Bespoke digital experiences merging editorial typography, WebGL shaders, fluid micro-interactions, and sub-second load times.",
+    deliverables: [
+      "Responsive Desktop & Mobile Layouts",
+      "WebGL Canvas & Micro-Animations",
+      "Framer Motion Kinetic Choreography",
+      "Dynamic Content Layouts",
+    ],
+    tools: ["Next.js", "WebGL / OGL", "Framer Motion", "Tailwind CSS"],
+    icon: "Globe",
+    gradient: "from-cyan-500/20 via-blue-500/10 to-transparent",
+  },
+  {
+    id: "social-media",
+    number: "05",
+    title: "Social Media & Marketing Creatives",
+    shortDesc: "Conversion-engineered social carousels, campaign banners, engagement-driven post systems, and digital promotional assets.",
+    deliverables: [
+      "Multi-Slide LinkedIn & IG Carousels",
+      "Story & Reel Visual Storyboards",
+      "Promotional Ad Templates",
+      "Community Brand Identity Kits",
+    ],
+    tools: ["Photoshop", "Illustrator", "After Effects", "Figma"],
+    icon: "Share2",
+    gradient: "from-rose-500/20 via-pink-500/10 to-transparent",
+  },
+  {
+    id: "digital-campaigns",
+    number: "06",
+    title: "Digital Campaigns & Ad Creative",
+    shortDesc: "End-to-end promotional visuals, conversion-optimized landing page assets, and multi-channel marketing campaigns.",
+    deliverables: [
+      "Performance Display Ads",
+      "High-Conversion Landing Banners",
+      "Email Newsletter Design Templates",
+      "Product Launch Visual Toolkits",
+    ],
+    tools: ["Adobe Creative Suite", "Figma", "Canva", "HTML/CSS"],
+    icon: "Flame",
+    gradient: "from-amber-500/20 via-orange-500/10 to-transparent",
+  },
+  {
+    id: "seo-visuals",
+    number: "07",
+    title: "SEO Visual Content & Performance",
+    shortDesc: "Search-optimized infographics, structured OpenGraph image schemas, vector SVGs, and Core Web Vitals asset tuning.",
+    deliverables: [
+      "Technical Data Infographics",
+      "Dynamic OpenGraph & Twitter Cards",
+      "Lossless WebP/AVIF Asset Compression",
+      "Schema-Compliant Image Structures",
+    ],
+    tools: ["Next/Image", "Sharp", "Illustrator", "SVG Optimization"],
+    icon: "TrendingUp",
+    gradient: "from-emerald-500/20 via-teal-500/10 to-transparent",
+  },
+  {
+    id: "presentation-design",
+    number: "08",
+    title: "Presentation & Pitch Deck Design",
+    shortDesc: "Executive-ready investor pitch decks, architectural data visual storytelling, corporate keynotes, and product showcases.",
+    deliverables: [
+      "Investor Pitch Presentations",
+      "Technical Architecture Decks",
+      "Product Walkthrough Slidedecks",
+      "Interactive Keynote Templates",
+    ],
+    tools: ["PowerPoint", "Google Slides", "Figma", "Keynote"],
+    icon: "Presentation",
+    gradient: "from-violet-500/20 via-purple-500/10 to-transparent",
+  },
+  {
+    id: "editorial-design",
+    number: "09",
+    title: "Editorial & Publication Design",
+    shortDesc: "Mathematical typography layouts, technical documentation zines, digital whitepapers, and annual publication structures.",
+    deliverables: [
+      "Technical Whitepaper Layouts",
+      "Digital Product Catalogs",
+      "Multi-Column Editorial Spreads",
+      "Interactive PDF Documentation",
+    ],
+    tools: ["Adobe InDesign", "Illustrator", "Typography Grids"],
+    icon: "BookOpen",
+    gradient: "from-blue-500/20 via-indigo-500/10 to-transparent",
+  },
+  {
+    id: "creative-direction",
+    number: "10",
+    title: "Creative Direction & Brand Strategy",
+    shortDesc: "Holistic aesthetic governance, creative roadmaps, design sprint leadership, and aligning visual elegance with business objectives.",
+    deliverables: [
+      "Omnichannel Design Systems",
+      "Design Sprint Facilitation",
+      "Creative Vision Roadmaps",
+      "Cross-Discipline Aesthetic Governance",
+    ],
+    tools: ["Miro", "Notion", "Figma Enterprise", "Design Tokens"],
+    icon: "Compass",
+    gradient: "from-purple-500/25 via-pink-500/15 to-transparent",
+  },
+];
+
+export const creativeProcessData: CreativeProcessStep[] = [
+  {
+    step: "01",
+    phase: "DISCOVER",
+    title: "Audit & Requirements Discovery",
+    description:
+      "Deep dive into client business goals, target audience personas, competitive landscapes, and technical feasibility constraints.",
+    deliverables: [
+      "Stakeholder Interview Synthesis",
+      "Competitive Visual & Tech Audit",
+      "Brand Archetype Definition",
+      "System Feasibility Matrix",
+    ],
+    tools: ["Notion", "Miro", "Figma FigJam", "Google Analytics"],
+    keyQuestion: "What is the core user problem and how does design unlock the business objective?",
+  },
+  {
+    step: "02",
+    phase: "DEFINE",
+    title: "Strategy & Information Architecture",
+    description:
+      "Structuring content hierarchy, user flows, typography clamps, design tokens, and defining modular engineering foundations.",
+    deliverables: [
+      "Information Architecture Maps",
+      "User Journey & Interaction Flows",
+      "Atomic Design Token Schema",
+      "API & Component Contracts",
+    ],
+    tools: ["Figma", "Whimsical", "TypeScript Contracts", "JSON Schemas"],
+    keyQuestion: "How do we organize complex workflows into effortless, intuitive journeys?",
+  },
+  {
+    step: "03",
+    phase: "EXPLORE",
+    title: "Wireframing & Spatial Exploration",
+    description:
+      "Rapid low-fidelity prototyping, moodboard curation, layout experimentation, and spatial hierarchy testing without premature styling.",
+    deliverables: [
+      "Low-Fidelity Wireframes",
+      "Curated Moodboards & Typography Pairings",
+      "Spatial Grid Prototyping",
+      "Micro-Interaction Sketches",
+    ],
+    tools: ["Figma", "Excalidraw", "Paper & Pencil", "CodePen"],
+    keyQuestion: "Which layout paradigm provides maximum clarity and fastest cognitive comprehension?",
+  },
+  {
+    step: "04",
+    phase: "DESIGN",
+    title: "High-Fidelity UI & Visual Systems",
+    description:
+      "Translating wireframes into pixel-perfect visual designs, crafting custom vector icons, dark mode palettes, and WCAG AA contrast tokens.",
+    deliverables: [
+      "Pixel-Perfect UI Components",
+      "Vector Graphics & Monograms",
+      "Interactive High-Fidelity Prototypes",
+      "WCAG 2.1 AA Accessibility Validation",
+    ],
+    tools: ["Figma", "Adobe Illustrator", "Photoshop", "Color Contrast Analyzers"],
+    keyQuestion: "Does every visual element serve a clear functional and emotional purpose?",
+  },
+  {
+    step: "05",
+    phase: "DEVELOP",
+    title: "Component Engineering & WebGL",
+    description:
+      "Transforming approved designs into clean Next.js, React, and Spring Boot code with WebGL shaders, fluid motion, and strict TypeScript types.",
+    deliverables: [
+      "Modular React Component Library",
+      "Custom WebGL Canvas Shaders (OGL)",
+      "High-Throughput Spring Boot REST APIs",
+      "Tailwind CSS Design Token Bindings",
+    ],
+    tools: ["Next.js 14", "TypeScript", "Tailwind CSS", "OGL WebGL", "Spring Boot"],
+    keyQuestion: "How do we achieve 60fps cinematic fluidity while maintaining sub-second load times?",
+  },
+  {
+    step: "06",
+    phase: "REFINE",
+    title: "Performance, Motion & Quality Tuning",
+    description:
+      "Rigorous cross-device QA, micro-interaction spring dampening, Core Web Vitals optimization, and 88%+ automated test verification.",
+    deliverables: [
+      "Lighthouse 95+ Performance Scores",
+      "Spring Physics & Motion Polish",
+      "Cross-Browser & Touch Ergonomics QA",
+      "Automated Unit & Contract Test Suites",
+    ],
+    tools: ["Chrome DevTools", "Lighthouse", "Jest", "Postman", "BrowserStack"],
+    keyQuestion: "Is the product resilient across low-spec hardware, touchscreens, and screen readers?",
+  },
+  {
+    step: "07",
+    phase: "DELIVER",
+    title: "CI/CD Deployment & Production Scaling",
+    description:
+      "Automated deployment to edge infrastructure, GitHub repository documentation, production telemetry instrumentation, and real-time monitoring.",
+    deliverables: [
+      "Automated CI/CD GitHub Actions",
+      "Production Cloud Edge Deployment",
+      "Comprehensive Developer READMEs",
+      "Real-Time Telemetry & Uptime Monitoring",
+    ],
+    tools: ["GitHub Actions", "Vercel / Docker", "PostgreSQL", "Cloudflare"],
+    keyQuestion: "Is the platform production-hardened, self-healing, and effortlessly scalable?",
+  },
+];
+
+export const visualLabData: VisualLabItem[] = [
+  {
+    id: "exp-monogram",
+    title: "CYBERNETIC MONOGRAM // HHA DYNAMICS",
+    subtitle: "Brand Identity & Mathematical Vector Geometry",
+    category: "GRAPHIC DESIGN",
+    description:
+      "A geometric monogram system engineered on a golden-ratio isometric grid. Designed for responsive scaling from 16px favicons to building-scale architectural signage with zero visual distortion.",
+    tags: ["Vector Geometry", "Golden Ratio", "Scalable SVG", "Brand Systems"],
+    color: "#A100FF",
+    accent: "#7C3AED",
+    previewGradient: "from-purple-900/60 via-purple-600/30 to-black",
+    specDetails: {
+      tool: "Illustrator + Figma",
+      aspect: "1:1 Square",
+      type: "Vector Identity",
+    },
+  },
+  {
+    id: "exp-spectral",
+    title: "SPECTRAL CHROMATICS // LIQUID GLASS",
+    subtitle: "Real-Time WebGL Shader & Chromatic Aberration",
+    category: "UI/UX SHADER",
+    description:
+      "Custom WebGL fragment shader simulating refractive physical glass with dynamic RGB dispersion and velocity-dependent wave distortion. Runs at a locked 60 FPS across desktop and mobile devices.",
+    tags: ["WebGL / OGL", "GLSL Shaders", "Refraction", "Chromatic Aberration"],
+    color: "#06B6D4",
+    accent: "#3B82F6",
+    previewGradient: "from-cyan-900/60 via-blue-600/30 to-black",
+    specDetails: {
+      tool: "OGL + GLSL",
+      aspect: "16:9 Cinema",
+      type: "Real-time Shader",
+    },
+  },
+  {
+    id: "exp-typography",
+    title: "NEO-EDITORIAL TYPOGRAPHY // SCALE CLAMP",
+    subtitle: "Mathematical Fluid Type Systems & Editorial Spreads",
+    category: "TYPOGRAPHY",
+    description:
+      "A responsive typography framework utilizing mathematical viewport-clamping algorithms and modular scale ratios. Eliminates sudden layout shifts across all monitor aspect ratios.",
+    tags: ["Space Grotesk", "Fluid Typography", "CSS Clamps", "Editorial Design"],
+    color: "#EC4899",
+    accent: "#A855F7",
+    previewGradient: "from-pink-900/60 via-purple-600/30 to-black",
+    specDetails: {
+      tool: "CSS Math + Space Grotesk",
+      aspect: "4:3 Editorial",
+      type: "Fluid Type System",
+    },
+  },
+  {
+    id: "exp-telemetrics",
+    title: "TELEMETRIC VISUALIZER // V2V RADAR",
+    subtitle: "High-Frequency Real-Time IoT Vector Radar",
+    category: "DATA VIZ",
+    description:
+      "Real-time telematics dashboard visualizing asynchronous IoT vehicle coordinates, proximity sweeps, and collision hazard vectors with 100Hz WebSocket telemetry streams.",
+    tags: ["Canvas 2D", "WebSockets", "IoT Telematics", "Collision Vectors"],
+    color: "#10B981",
+    accent: "#06B6D4",
+    previewGradient: "from-emerald-900/60 via-teal-600/30 to-black",
+    specDetails: {
+      tool: "HTML5 Canvas + WebSockets",
+      aspect: "16:9 Widescreen",
+      type: "Telemetry Radar",
+    },
+  },
+  {
+    id: "exp-kieyverse-brand",
+    title: "KIEYVERSE BRAND MATRIX // ASSET SUITE",
+    subtitle: "Complete Digital Marketing Kit & Enterprise Social Templates",
+    category: "BRANDING",
+    description:
+      "A comprehensive corporate design language developed during my tenure at KIEYVERSE. Includes modular social media carousel systems, presentation decks, and conversion-optimized ad creatives.",
+    tags: ["Brand Guidelines", "Social Carousels", "Ad Templates", "Corporate Identity"],
+    color: "#F59E0B",
+    accent: "#EF4444",
+    previewGradient: "from-amber-900/60 via-orange-600/30 to-black",
+    specDetails: {
+      tool: "Adobe Suite + Figma",
+      aspect: "1:1 Carousel",
+      type: "Marketing System",
+    },
+  },
+  {
+    id: "exp-quantum-lux",
+    title: "QUANTUM LUXURY // 3D CARD INTERACTION",
+    subtitle: "Spatial E-Commerce Micro-Interactions & Spring Physics",
+    category: "MOTION 3D",
+    description:
+      "Interactive 3D product card with dynamic specular lighting highlights, mouse-tracking gyro tilting, and tactile haptic visual feedback for high-end luxury e-commerce catalogs.",
+    tags: ["Framer Motion", "3D Transforms", "Specular Lighting", "Micro-Interactions"],
+    color: "#8B5CF6",
+    accent: "#C084FC",
+    previewGradient: "from-violet-900/60 via-purple-600/30 to-black",
+    specDetails: {
+      tool: "React + Framer Motion",
+      aspect: "3:4 Portrait",
+      type: "3D Product Card",
+    },
+  },
+  {
+    id: "exp-dark-system",
+    title: "OBSIDIAN DESIGN SYSTEM // ATOMIC TOKENS",
+    subtitle: "Deep-Contrast Enterprise Dark Theme & WCAG AAA Ratios",
+    category: "GRAPHIC DESIGN",
+    description:
+      "A precision dark-mode design token ecosystem with elevated border luminance, multi-tiered surface depths, and strict 7:1+ contrast ratios for high-concentration developer interfaces.",
+    tags: ["Dark Mode", "WCAG AAA", "Design Tokens", "Tailwind Presets"],
+    color: "#A100FF",
+    accent: "#E2E8F0",
+    previewGradient: "from-neutral-900/90 via-purple-950/40 to-black",
+    specDetails: {
+      tool: "Figma Tokens + Tailwind",
+      aspect: "16:9 Dashboard",
+      type: "Design Token Library",
+    },
+  },
+];
+
+export const creativePhilosophyData = {
+  quote: "DESIGN IS NOT DECORATION. IT IS HOW AN IDEA BECOMES AN EXPERIENCE.",
+  subtitle: "Uniting algorithmic rigor with uncompromising visual elegance.",
+  manifesto: [
+    "Software without intentional design is cold, brittle, and confusing. Design without robust engineering is superficial, slow, and fragile.",
+    "I operate at the precise intersection of both: writing enterprise-grade Spring Boot microservices and low-latency React architectures, while crafting pixel-perfect vector brand systems, fluid WebGL shaders, and high-conversion UX journeys.",
+  ],
+  pipelineSteps: [
+    { number: "01", name: "IDEA", desc: "Insight & Problem Discovery" },
+    { number: "02", name: "RESEARCH", desc: "User Empathy & Architecture Audit" },
+    { number: "03", name: "DESIGN", desc: "Wireframing & High-Fidelity UI" },
+    { number: "04", name: "SYSTEM", desc: "Tokens, Contracts & Protocols" },
+    { number: "05", name: "CODE", desc: "Full-Stack Microservices & Shaders" },
+    { number: "06", name: "DATA", desc: "Telemetry, Testing & Analytics" },
+    { number: "07", name: "EXPERIENCE", desc: "60 FPS Production Masterpiece" },
+  ],
+};
+

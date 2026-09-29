@@ -5,16 +5,17 @@ import CinematicPreloader from "@/components/CinematicPreloader";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import EditorialMarquee from "@/components/EditorialMarquee";
-import AboutSection from "@/components/AboutSection";
+import ProjectShowcase from "@/components/ProjectShowcase";
+import DesignDisciplinesSection from "@/components/DesignDisciplinesSection";
+import CreativeProcessSection from "@/components/CreativeProcessSection";
+import VisualLabSection from "@/components/VisualLabSection";
+import GithubCommandCenter from "@/components/GithubCommandCenter";
 import ExperienceTimeline from "@/components/ExperienceTimeline";
 import SkillsEcosystem from "@/components/SkillsEcosystem";
-import ProjectShowcase from "@/components/ProjectShowcase";
-import GithubCommandCenter from "@/components/GithubCommandCenter";
-import ArchitectureSection from "@/components/ArchitectureSection";
 import AnalyticsSection from "@/components/AnalyticsSection";
-import CreativeSection from "@/components/CreativeSection";
 import EducationSection from "@/components/EducationSection";
 import CertificationsSection from "@/components/CertificationsSection";
+import AboutSection from "@/components/AboutSection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
 import ResumeModal from "@/components/ResumeModal";
@@ -29,7 +30,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0A0A0A] text-[#F7F7F5] selection:bg-[#A100FF] selection:text-white relative font-sans">
+    <div className="min-h-screen bg-[#07070A] text-[#F7F7F5] selection:bg-[#A100FF] selection:text-white relative font-sans">
       {/* Cinematic Intro Preloader */}
       <CinematicPreloader />
 
@@ -44,41 +45,44 @@ export default function Home() {
         {/* Dynamic Continuous Marquee Ticker */}
         <EditorialMarquee />
 
-        {/* 02: About & Philosophy + Verified Metrics */}
-        <AboutSection />
-
-        {/* 03: Professional Career Experience Timeline (KIEYVERSE, Techzon Wide, DCI, Mita) */}
-        <ExperienceTimeline onOpenCertificate={handleOpenCertificate} />
-
-        {/* 04: Interactive Technology Ecosystem */}
-        <SkillsEcosystem />
-
-        {/* 05: Featured Project Laboratory & Showcase */}
+        {/* 02: Selected Work & Production Projects */}
         <ProjectShowcase />
 
-        {/* 06: GitHub Command Center & Live Repository Explorer */}
+        {/* 03: 10 Specialized Design Disciplines */}
+        <DesignDisciplinesSection />
+
+        {/* 04: How I Build / 7-Phase Creative Process & Architecture */}
+        <CreativeProcessSection />
+
+        {/* 06: Visual Experiments / Visual Lab (WebGL OGL FlexCarousel) */}
+        <VisualLabSection />
+
+        {/* GitHub Command Center & Live Repository Explorer */}
         <GithubCommandCenter />
 
-        {/* 07: How I Build - Enterprise Architecture Topology */}
-        <ArchitectureSection />
+        {/* 07: Professional Career Experience Timeline (Techzon Wide, KIEYVERSE, DCI, Mita) */}
+        <ExperienceTimeline onOpenCertificate={handleOpenCertificate} />
 
-        {/* 08: Data -> Insight - Analytics & Telematics Visualizer */}
+        {/* 08: Interactive Technology & Design Ecosystem */}
+        <SkillsEcosystem />
+
+        {/* Data -> Insight - Analytics & Telematics Visualizer */}
         <AnalyticsSection />
 
-        {/* 09: Code x Design - Creative Technology & UI/UX */}
-        <CreativeSection />
-
-        {/* 10: Formal Academic Education */}
+        {/* 09: Formal Academic Education (SSM Institute B.Tech CSBS) */}
         <EducationSection />
 
-        {/* 11: Verified Professional Certifications */}
+        {/* 10: Verified Professional Certifications */}
         <CertificationsSection onOpenCertificateModal={handleOpenCertificate} />
+
+        {/* 11: About & Creative Philosophy (Design is not Decoration + Code x Design) */}
+        <AboutSection />
 
         {/* 12: Contact & Engagement Dispatch */}
         <ContactSection onOpenResume={() => setResumeOpen(true)} />
       </main>
 
-      {/* Enterprise Footer */}
+      {/* Enterprise Oversized Footer */}
       <Footer onOpenResume={() => setResumeOpen(true)} />
 
       {/* Interactive In-App Resume Modal */}
