@@ -22,7 +22,7 @@ import {
 import { profileData } from "@/data/portfolioData";
 import DitherVeil from "@/components/DitherVeil";
 import TechText from "@/components/TechText";
-
+import LaserFlow from "@/components/LaserFlow";
 
 interface HeroProps {
   onOpenResume: () => void;
@@ -58,9 +58,24 @@ export default function Hero({ onOpenResume }: HeroProps) {
       id="hero"
       className="relative min-h-screen flex items-center justify-center pt-28 pb-16 px-6 md:px-12 overflow-hidden bg-[#07070A]"
     >
-      {/* Background Architectural Grid & Subtle Laser Light */}
-      <div className="absolute inset-0 bg-grid opacity-50 pointer-events-none" />
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-br from-[#A100FF]/15 via-[#7C3AED]/05 to-transparent rounded-full blur-[140px] pointer-events-none" />
+      {/* 3D Volumetric LaserFlow Background Atmosphere */}
+      <div className="absolute inset-0 pointer-events-none opacity-40 mix-blend-screen overflow-hidden z-0">
+        <LaserFlow
+          horizontalBeamOffset={0.05}
+          verticalBeamOffset={-0.12}
+          color="#A100FF"
+          backgroundColor="#07070A"
+          fogIntensity={0.5}
+          wispIntensity={4.0}
+          flowSpeed={0.3}
+          mouseTiltStrength={0.012}
+        />
+      </div>
+
+      {/* Background Architectural Grid */}
+      <div className="absolute inset-0 bg-grid opacity-40 pointer-events-none z-[1]" />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-br from-[#A100FF]/15 via-[#7C3AED]/05 to-transparent rounded-full blur-[140px] pointer-events-none z-[1]" />
+
 
       {/* Floating System Coordinates & Latency Indicator */}
       <div className="absolute top-28 right-10 hidden lg:flex items-center gap-3 px-3.5 py-1.5 rounded-full border border-white/10 bg-[#111116]/80 backdrop-blur-md text-[11px] font-mono text-neutral-400 select-none">

@@ -17,6 +17,7 @@ import {
   Terminal,
 } from "lucide-react";
 import { profileData } from "@/data/portfolioData";
+import LaserFlow from "@/components/LaserFlow";
 
 interface ContactSectionProps {
   onOpenResume: () => void;
@@ -60,7 +61,21 @@ export default function ContactSection({ onOpenResume }: ContactSectionProps) {
   };
 
   return (
-    <section id="contact" className="relative py-28 px-6 md:px-12 bg-[#080808] border-t border-white/10">
+    <section id="contact" className="relative py-28 px-6 md:px-12 bg-[#07070A] border-t border-white/10 overflow-hidden">
+      {/* LaserFlow Volumetric Atmosphere */}
+      <div className="absolute inset-0 pointer-events-none opacity-30 mix-blend-screen overflow-hidden z-0">
+        <LaserFlow
+          horizontalBeamOffset={-0.1}
+          verticalBeamOffset={0.1}
+          color="#A100FF"
+          backgroundColor="#07070A"
+          fogIntensity={0.4}
+          wispIntensity={3.5}
+          flowSpeed={0.25}
+          mouseTiltStrength={0.01}
+        />
+      </div>
+
       <div className="max-w-7xl mx-auto relative z-10">
         {/* Section Header */}
         <div className="flex flex-col space-y-4 max-w-3xl mb-16">
