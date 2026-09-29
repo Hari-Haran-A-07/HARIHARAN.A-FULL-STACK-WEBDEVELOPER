@@ -21,6 +21,8 @@ import {
 } from "lucide-react";
 import { profileData } from "@/data/portfolioData";
 import DitherVeil from "@/components/DitherVeil";
+import TechText from "@/components/TechText";
+
 
 interface HeroProps {
   onOpenResume: () => void;
@@ -86,6 +88,33 @@ export default function Hero({ onOpenResume }: HeroProps) {
             </span>
             <span className="text-neutral-600 font-mono text-xs">/</span>
             <span className="font-mono text-xs text-neutral-400">ENGINEER • BUILDER • ANALYST • DESIGNER</span>
+          </div>
+
+          {/* Interactive TechText Vector Wordmark */}
+          <div className="w-full h-[70px] sm:h-[85px] md:h-[95px] relative rounded-2xl bg-white/[0.02] border border-white/10 p-1 overflow-hidden shadow-inner group">
+            <div className="absolute top-1.5 right-3 font-mono text-[9px] text-[#A100FF] uppercase tracking-widest pointer-events-none z-10 flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#A100FF] animate-pulse" />
+              <span>TECHTEXT // DRAGGABLE LETTERS</span>
+            </div>
+            <TechText
+              text="HARI HARAN A"
+              fontWeight={800}
+              fontSize={80}
+              letterSpacing={-0.03}
+              color="#FFFFFF"
+              accentColor="#A100FF"
+              reveal="letter"
+              reach={180}
+              dashLength={4}
+              dashGap={2}
+              strokeWidth={1.5}
+              specks={14}
+              selection={true}
+              labels={true}
+              draggable={true}
+              sweep={true}
+              speed={1}
+            />
           </div>
 
           {/* Primary Editorial Headline */}
