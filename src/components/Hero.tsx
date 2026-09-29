@@ -8,16 +8,19 @@ import {
   Download,
   Github,
   Linkedin,
-  Terminal,
-  Code2,
-  Database,
-  Cpu,
-  Layers,
   Sparkles,
   ShieldCheck,
-  Activity,
+  Palette,
+  Code2,
+  Layers,
+  Cpu,
+  Database,
+  Eye,
+  Sliders,
+  Maximize2,
 } from "lucide-react";
 import { profileData } from "@/data/portfolioData";
+import DitherVeil from "@/components/DitherVeil";
 
 interface HeroProps {
   onOpenResume: () => void;
@@ -25,6 +28,8 @@ interface HeroProps {
 
 export default function Hero({ onOpenResume }: HeroProps) {
   const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
+  const [heroMode, setHeroMode] = useState<"graphic" | "system">("graphic");
+  const [ditherPattern, setDitherPattern] = useState<"floyd" | "bayer" | "noise" | "atkinson" | "lines">("floyd");
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -49,14 +54,14 @@ export default function Hero({ onOpenResume }: HeroProps) {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center justify-center pt-28 pb-16 px-6 md:px-12 overflow-hidden bg-[#0A0A0A]"
+      className="relative min-h-screen flex items-center justify-center pt-28 pb-16 px-6 md:px-12 overflow-hidden bg-[#07070A]"
     >
       {/* Background Architectural Grid & Subtle Laser Light */}
-      <div className="absolute inset-0 bg-grid opacity-60 pointer-events-none" />
+      <div className="absolute inset-0 bg-grid opacity-50 pointer-events-none" />
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-br from-[#A100FF]/15 via-[#7C3AED]/05 to-transparent rounded-full blur-[140px] pointer-events-none" />
 
       {/* Floating System Coordinates & Latency Indicator */}
-      <div className="absolute top-28 right-10 hidden lg:flex items-center gap-3 px-3.5 py-1.5 rounded-full border border-white/10 bg-[#111111]/80 backdrop-blur-md text-[11px] font-mono text-neutral-400 select-none">
+      <div className="absolute top-28 right-10 hidden lg:flex items-center gap-3 px-3.5 py-1.5 rounded-full border border-white/10 bg-[#111116]/80 backdrop-blur-md text-[11px] font-mono text-neutral-400 select-none">
         <div className="flex items-center gap-1.5">
           <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
           <span className="text-white font-bold">SYSTEM: ONLINE</span>
@@ -86,10 +91,10 @@ export default function Hero({ onOpenResume }: HeroProps) {
           {/* Primary Editorial Headline */}
           <div className="space-y-2">
             <h1 className="font-heading text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tighter text-white uppercase leading-[0.95]">
-              FULL STACK
+              GRAPHIC DESIGNER &amp;
               <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-neutral-200 to-neutral-400">
-                DEVELOPER
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-400 to-white">
+                FULL STACK DEV
               </span>
             </h1>
 
@@ -130,7 +135,7 @@ export default function Hero({ onOpenResume }: HeroProps) {
               href={profileData.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-2 px-5 py-3.5 bg-[#111111] border border-white/15 text-white font-mono font-bold text-xs sm:text-sm uppercase tracking-wider rounded-lg hover:border-[#A100FF] hover:bg-[#1A1A1A] transition-all active:scale-[0.98]"
+              className="group inline-flex items-center gap-2 px-5 py-3.5 bg-[#111116] border border-white/15 text-white font-mono font-bold text-xs sm:text-sm uppercase tracking-wider rounded-lg hover:border-[#A100FF] hover:bg-[#1A1A22] transition-all active:scale-[0.98]"
             >
               <Github className="w-4 h-4 text-[#A100FF]" />
               <span>GITHUB</span>
@@ -141,7 +146,7 @@ export default function Hero({ onOpenResume }: HeroProps) {
               href={profileData.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-2 px-5 py-3.5 bg-[#111111] border border-white/15 text-white font-mono font-bold text-xs sm:text-sm uppercase tracking-wider rounded-lg hover:border-[#A100FF] hover:bg-[#1A1A1A] transition-all active:scale-[0.98]"
+              className="group inline-flex items-center gap-2 px-5 py-3.5 bg-[#111116] border border-white/15 text-white font-mono font-bold text-xs sm:text-sm uppercase tracking-wider rounded-lg hover:border-[#A100FF] hover:bg-[#1A1A22] transition-all active:scale-[0.98]"
             >
               <Linkedin className="w-4 h-4 text-[#38BDF8]" />
               <span>LINKEDIN</span>
@@ -150,7 +155,7 @@ export default function Hero({ onOpenResume }: HeroProps) {
 
             <button
               onClick={onOpenResume}
-              className="group inline-flex items-center gap-2 px-5 py-3.5 bg-[#111111] border border-white/15 text-neutral-200 font-mono font-bold text-xs sm:text-sm uppercase tracking-wider rounded-lg hover:border-[#A100FF] hover:text-white hover:bg-[#1A1A1A] transition-all active:scale-[0.98]"
+              className="group inline-flex items-center gap-2 px-5 py-3.5 bg-[#111116] border border-white/15 text-neutral-200 font-mono font-bold text-xs sm:text-sm uppercase tracking-wider rounded-lg hover:border-[#A100FF] hover:text-white hover:bg-[#1A1A22] transition-all active:scale-[0.98]"
             >
               <Download className="w-4 h-4 text-[#A100FF] group-hover:-translate-y-0.5 transition-transform" />
               <span>DOWNLOAD RESUME</span>
@@ -186,90 +191,167 @@ export default function Hero({ onOpenResume }: HeroProps) {
           </div>
         </motion.div>
 
-        {/* Right High-Impact Portrait / Engineering Identity Card */}
+        {/* Right High-Impact Interactive Visual Opening Card */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.9, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
           className="lg:col-span-5 relative"
         >
-          {/* Subtle Ambient Glow */}
-          <div className="absolute -inset-1 bg-gradient-to-r from-[#A100FF]/30 to-[#7C3AED]/20 rounded-2xl blur-xl opacity-75" />
+          {/* Ambient Glow */}
+          <div className="absolute -inset-1 bg-gradient-to-r from-[#A100FF]/30 to-[#7C3AED]/20 rounded-3xl blur-xl opacity-75" />
 
-          {/* Editorial Card Frame */}
-          <div className="relative rounded-2xl bg-gradient-to-b from-[#141414] via-[#0D0D0D] to-[#0A0A0A] border border-white/15 p-6 sm:p-8 overflow-hidden shadow-2xl">
-            {/* Top Card Bar */}
-            <div className="flex items-center justify-between pb-6 border-b border-white/10">
-              <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full bg-[#A100FF]" />
-                <div className="w-3 h-3 rounded-full bg-neutral-800" />
-                <div className="w-3 h-3 rounded-full bg-neutral-800" />
+          {/* Master Opening Frame */}
+          <div className="relative rounded-3xl bg-gradient-to-b from-[#14141A] via-[#0E0E14] to-[#07070A] border border-white/15 p-5 sm:p-7 overflow-hidden shadow-2xl">
+            {/* Top Interactive Mode Switcher */}
+            <div className="flex items-center justify-between pb-4 border-b border-white/10 gap-2">
+              <div className="flex items-center gap-1 p-1 rounded-xl bg-black/60 border border-white/10">
+                <button
+                  onClick={() => setHeroMode("graphic")}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-mono text-[10px] sm:text-[11px] uppercase tracking-wider transition-all ${
+                    heroMode === "graphic"
+                      ? "bg-[#A100FF] text-white font-bold shadow-[0_0_12px_rgba(161,0,255,0.4)]"
+                      : "text-neutral-400 hover:text-white"
+                  }`}
+                >
+                  <Palette className="w-3 h-3" />
+                  <span>GRAPHIC DESIGNER</span>
+                </button>
+
+                <button
+                  onClick={() => setHeroMode("system")}
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg font-mono text-[10px] sm:text-[11px] uppercase tracking-wider transition-all ${
+                    heroMode === "system"
+                      ? "bg-[#A100FF] text-white font-bold shadow-[0_0_12px_rgba(161,0,255,0.4)]"
+                      : "text-neutral-400 hover:text-white"
+                  }`}
+                >
+                  <Cpu className="w-3 h-3" />
+                  <span>SYSTEM MATRIX</span>
+                </button>
               </div>
-              <div className="flex items-center gap-1.5 font-mono text-[11px] text-neutral-400">
-                <ShieldCheck className="w-3.5 h-3.5 text-[#A100FF]" />
-                <span>VERIFIED CREDENTIALS</span>
+
+              <div className="hidden sm:flex items-center gap-1.5 font-mono text-[10px] text-neutral-400">
+                <span className="w-2 h-2 rounded-full bg-[#A100FF] animate-pulse" />
+                <span>WEBGL OGL</span>
               </div>
             </div>
 
-            {/* Central Monogram & Tech Vector Visual */}
-            <div className="py-8 flex flex-col items-center justify-center text-center relative">
-              {/* Geometric Ring */}
-              <div className="relative w-40 h-40 sm:w-48 sm:h-48 rounded-full border border-white/10 flex items-center justify-center mb-6 bg-gradient-to-b from-neutral-900 to-black group">
-                <div className="absolute inset-2 rounded-full border border-dashed border-[#A100FF]/40 animate-[spin_40s_linear_infinite]" />
-                
-                {/* Monogram / Profile Center */}
-                <div className="relative z-10 flex flex-col items-center">
-                  <span className="font-mono text-4xl sm:text-5xl font-black tracking-tighter text-white group-hover:scale-105 transition-transform">
-                    HA
-                  </span>
-                  <div className="h-0.5 w-8 bg-[#A100FF] my-1" />
-                  <span className="font-mono text-[9px] uppercase tracking-widest text-[#C084FC]">
-                    ARCHITECT
-                  </span>
+            {/* Viewport Content */}
+            {heroMode === "graphic" ? (
+              <div className="py-4 space-y-3">
+                {/* DitherVeil Interactive Canvas */}
+                <div className="relative w-full h-[320px] sm:h-[350px] rounded-2xl overflow-hidden border border-white/10 shadow-inner group">
+                  <DitherVeil
+                    src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1200&auto=format&fit=crop"
+                    pattern={ditherPattern}
+                    pixelSize={2}
+                    inkColor="#07070A"
+                    paperColor="#F7F7F5"
+                    rimColor="#A100FF"
+                    rim={0.25}
+                    revealRadius={180}
+                    softness={0.6}
+                    linger={1.2}
+                    wander={true}
+                    clickBurst={true}
+                  />
+
+                  {/* Overlay Watermark Badges */}
+                  <div className="absolute top-3 left-3 pointer-events-none px-2.5 py-1 rounded-full bg-black/70 border border-white/15 backdrop-blur-md font-mono text-[10px] text-white/90 flex items-center gap-1.5">
+                    <Sparkles className="w-3 h-3 text-[#A100FF]" />
+                    <span>GRAPHIC DESIGNER // DITHER VEIL</span>
+                  </div>
+
+                  <div className="absolute bottom-3 left-3 right-3 pointer-events-none px-3 py-1.5 rounded-xl bg-black/75 border border-white/10 backdrop-blur-md font-mono text-[10px] text-neutral-300 flex items-center justify-between">
+                    <span>HOVER &amp; CLICK TO DISSOLVE</span>
+                    <span className="text-[#C084FC] uppercase">{ditherPattern} MATRIX</span>
+                  </div>
                 </div>
 
-                {/* Floating Orbit Nodes */}
-                <div className="absolute -top-2 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded bg-neutral-900 border border-[#A100FF]/50 text-[9px] font-mono text-white shadow-md">
-                  JAVA / SPRING
-                </div>
-                <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded bg-neutral-900 border border-white/20 text-[9px] font-mono text-neutral-300 shadow-md">
-                  REACT / NEXT
-                </div>
-                <div className="absolute top-1/2 -left-3 -translate-y-1/2 px-2 py-0.5 rounded bg-neutral-900 border border-white/20 text-[9px] font-mono text-neutral-300 shadow-md">
-                  SQL
-                </div>
-                <div className="absolute top-1/2 -right-3 -translate-y-1/2 px-2 py-0.5 rounded bg-neutral-900 border border-white/20 text-[9px] font-mono text-neutral-300 shadow-md">
-                  PYTHON
+                {/* Pattern Controls Bar */}
+                <div className="flex items-center justify-between pt-2">
+                  <span className="font-mono text-[10px] text-neutral-400 uppercase">
+                    DITHER PATTERN:
+                  </span>
+                  <div className="flex items-center gap-1">
+                    {(["floyd", "bayer", "noise", "atkinson", "lines"] as const).map((pat) => (
+                      <button
+                        key={pat}
+                        onClick={() => setDitherPattern(pat)}
+                        className={`px-2 py-0.5 rounded font-mono text-[9px] uppercase tracking-wider transition-all ${
+                          ditherPattern === pat
+                            ? "bg-[#A100FF] text-white font-bold"
+                            : "bg-white/5 text-neutral-400 hover:text-white"
+                        }`}
+                      >
+                        {pat}
+                      </button>
+                    ))}
+                  </div>
                 </div>
               </div>
+            ) : (
+              /* System Matrix Monogram Mode */
+              <div className="py-6 flex flex-col items-center justify-center text-center relative">
+                {/* Geometric Ring */}
+                <div className="relative w-40 h-40 sm:w-44 sm:h-44 rounded-full border border-white/10 flex items-center justify-center mb-5 bg-gradient-to-b from-neutral-900 to-black group">
+                  <div className="absolute inset-2 rounded-full border border-dashed border-[#A100FF]/40 animate-[spin_40s_linear_infinite]" />
+                  
+                  {/* Monogram / Profile Center */}
+                  <div className="relative z-10 flex flex-col items-center">
+                    <span className="font-mono text-4xl sm:text-5xl font-black tracking-tighter text-white group-hover:scale-105 transition-transform">
+                      HA
+                    </span>
+                    <div className="h-0.5 w-8 bg-[#A100FF] my-1" />
+                    <span className="font-mono text-[9px] uppercase tracking-widest text-[#C084FC]">
+                      ARCHITECT
+                    </span>
+                  </div>
 
-              {/* Identity Details */}
-              <h3 className="font-heading text-xl sm:text-2xl font-bold text-white tracking-tight uppercase">
-                HARI HARAN A
-              </h3>
-              <p className="text-xs font-mono text-[#A100FF] uppercase tracking-wider mt-1">
-                FULL STACK DEVELOPER & TEAM LEAD
-              </p>
-              <p className="text-xs text-neutral-400 mt-2 max-w-xs">
-                SSM Institute of Engineering & Technology • Techzon Wide • KIEYVERSE
-              </p>
-            </div>
+                  {/* Floating Orbit Nodes */}
+                  <div className="absolute -top-2 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded bg-neutral-900 border border-[#A100FF]/50 text-[9px] font-mono text-white shadow-md">
+                    JAVA / SPRING
+                  </div>
+                  <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 px-2 py-0.5 rounded bg-neutral-900 border border-white/20 text-[9px] font-mono text-neutral-300 shadow-md">
+                    REACT / NEXT
+                  </div>
+                  <div className="absolute top-1/2 -left-3 -translate-y-1/2 px-2 py-0.5 rounded bg-neutral-900 border border-white/20 text-[9px] font-mono text-neutral-300 shadow-md">
+                    SQL
+                  </div>
+                  <div className="absolute top-1/2 -right-3 -translate-y-1/2 px-2 py-0.5 rounded bg-neutral-900 border border-white/20 text-[9px] font-mono text-neutral-300 shadow-md">
+                    PYTHON
+                  </div>
+                </div>
+
+                {/* Identity Details */}
+                <h3 className="font-heading text-lg sm:text-xl font-bold text-white tracking-tight uppercase">
+                  HARI HARAN A
+                </h3>
+                <p className="text-xs font-mono text-[#A100FF] uppercase tracking-wider mt-1">
+                  FULL STACK DEVELOPER &amp; TEAM LEAD
+                </p>
+                <p className="text-xs text-neutral-400 mt-2 max-w-xs">
+                  SSM Institute of Engineering &amp; Technology • Techzon Wide • KIEYVERSE
+                </p>
+              </div>
+            )}
 
             {/* Bottom Stack Badges */}
-            <div className="pt-4 border-t border-white/10 grid grid-cols-2 gap-2 text-[11px] font-mono">
-              <div className="flex items-center gap-2 p-2 rounded-lg bg-neutral-900/60 border border-white/5">
+            <div className="pt-3 border-t border-white/10 grid grid-cols-2 gap-2 text-[11px] font-mono">
+              <div className="flex items-center gap-2 p-2 rounded-lg bg-white/[0.02] border border-white/5">
                 <Code2 className="w-3.5 h-3.5 text-[#A100FF]" />
                 <span className="text-neutral-300">Microservices</span>
               </div>
-              <div className="flex items-center gap-2 p-2 rounded-lg bg-neutral-900/60 border border-white/5">
-                <Database className="w-3.5 h-3.5 text-[#A100FF]" />
-                <span className="text-neutral-300">PostgreSQL / Mongo</span>
+              <div className="flex items-center gap-2 p-2 rounded-lg bg-white/[0.02] border border-white/5">
+                <Palette className="w-3.5 h-3.5 text-[#A100FF]" />
+                <span className="text-neutral-300">Vector Systems</span>
               </div>
-              <div className="flex items-center gap-2 p-2 rounded-lg bg-neutral-900/60 border border-white/5">
+              <div className="flex items-center gap-2 p-2 rounded-lg bg-white/[0.02] border border-white/5">
                 <Cpu className="w-3.5 h-3.5 text-[#A100FF]" />
-                <span className="text-neutral-300">Async Sockets</span>
+                <span className="text-neutral-300">GLSL Shaders</span>
               </div>
-              <div className="flex items-center gap-2 p-2 rounded-lg bg-neutral-900/60 border border-white/5">
+              <div className="flex items-center gap-2 p-2 rounded-lg bg-white/[0.02] border border-white/5">
                 <Layers className="w-3.5 h-3.5 text-[#A100FF]" />
                 <span className="text-neutral-300">UI/UX Systems</span>
               </div>
