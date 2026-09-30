@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ArrowUpRight, FileText, Sparkles, Terminal } from "lucide-react";
 import { navItems, profileData } from "@/data/portfolioData";
+import ElectricLogo from "@/components/ElectricLogo";
 
 interface NavbarProps {
   onOpenResume: () => void;
@@ -89,12 +90,22 @@ export default function Navbar({ onOpenResume }: NavbarProps) {
             onClick={(e) => handleNavClick(e, "#hero")}
             className="group flex items-center gap-3 text-white focus:outline-none rounded-sm"
           >
-            <div className="relative w-9 h-9 rounded-lg bg-gradient-to-br from-[#1A1A1A] to-[#0A0A0A] border border-white/15 flex items-center justify-center overflow-hidden transition-all group-hover:border-[#A100FF] group-hover:shadow-[0_0_20px_rgba(161,0,255,0.3)]">
-              <span className="font-mono text-xs font-black tracking-tighter text-white group-hover:text-[#C084FC] transition-colors">
-                HHA
-              </span>
-              <div className="absolute inset-0 bg-[#A100FF]/10 opacity-0 group-hover:opacity-100 transition-opacity" />
-              <div className="absolute bottom-0 right-0 w-1.5 h-1.5 bg-[#A100FF]" />
+            <div className="relative w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-br from-[#16161E] via-[#0E0E14] to-[#07070A] border border-white/15 flex items-center justify-center overflow-hidden transition-all group-hover:border-[#A100FF] group-hover:shadow-[0_0_25px_rgba(161,0,255,0.45)]">
+              <div className="w-full h-full">
+                <ElectricLogo
+                  src="/assets/logos/hha.svg"
+                  color="#ecc7ff"
+                  glowColor="#ad6dff"
+                  scale={0.8}
+                  strands={4}
+                  bend={0.6}
+                  crackle={1.5}
+                  arcs={2}
+                  speed={2.5}
+                  interactive={true}
+                />
+              </div>
+              <div className="absolute bottom-0 right-0 w-1.5 h-1.5 bg-[#A100FF] rounded-tl" />
             </div>
 
             <div className="flex flex-col">

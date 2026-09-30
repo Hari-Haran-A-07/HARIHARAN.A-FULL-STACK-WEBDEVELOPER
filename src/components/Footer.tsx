@@ -40,7 +40,7 @@ export default function Footer({ onOpenResume }: FooterProps) {
           <div className="md:col-span-6 space-y-4">
             <div className="flex items-center gap-3">
               <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-neutral-800 to-black border border-white/20 flex items-center justify-center text-white font-mono text-xs font-black">
-                HA
+                HHA
               </div>
               <span className="font-heading text-lg font-extrabold text-white tracking-wider uppercase">
                 {profileData.name}

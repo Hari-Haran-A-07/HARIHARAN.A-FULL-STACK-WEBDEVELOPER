@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 300" width="600" height="300" fill="none">
+  <!-- Letter 'H' 1 -->
+  <path d="M 60 60 L 110 60 L 110 125 L 180 125 L 180 60 L 230 60 L 230 240 L 180 240 L 180 175 L 110 175 L 110 240 L 60 240 Z" fill="#FFFFFF"/>
+  
+  <!-- Letter 'H' 2 -->
+  <path d="M 255 60 L 305 60 L 305 125 L 375 125 L 375 60 L 425 60 L 425 240 L 375 240 L 375 175 L 305 175 L 305 240 L 255 240 Z" fill="#FFFFFF"/>
+  
+  <!-- Letter 'A' -->
+  <path d="M 450 240 L 515 60 L 565 60 L 630 240 L 578 240 L 563 195 L 517 195 L 502 240 Z M 527 155 L 553 155 L 540 105 Z" fill="#FFFFFF" transform="translate(-30, 0)"/>
+</svg>
