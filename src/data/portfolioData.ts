@@ -41,12 +41,11 @@ export const navItems: NavItem[] = [
   { number: "02", label: "WORK", href: "#projects" },
   { number: "03", label: "DISCIPLINES", href: "#disciplines" },
   { number: "04", label: "PROCESS", href: "#process" },
-  { number: "05", label: "VISUAL LAB", href: "#visual-lab" },
-  { number: "06", label: "GITHUB", href: "#github" },
-  { number: "07", label: "EXPERIENCE", href: "#experience" },
-  { number: "08", label: "SKILLS", href: "#skills" },
-  { number: "09", label: "ABOUT", href: "#about" },
-  { number: "10", label: "CONTACT", href: "#contact" },
+  { number: "05", label: "GITHUB", href: "#github" },
+  { number: "06", label: "EXPERIENCE", href: "#experience" },
+  { number: "07", label: "SKILLS", href: "#skills" },
+  { number: "08", label: "ABOUT", href: "#about" },
+  { number: "09", label: "CONTACT", href: "#contact" },
 ];
 
 

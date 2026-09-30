@@ -8,7 +8,6 @@ import EditorialMarquee from "@/components/EditorialMarquee";
 import ProjectShowcase from "@/components/ProjectShowcase";
 import DesignDisciplinesSection from "@/components/DesignDisciplinesSection";
 import CreativeProcessSection from "@/components/CreativeProcessSection";
-import VisualLabSection from "@/components/VisualLabSection";
 import GithubCommandCenter from "@/components/GithubCommandCenter";
 import ExperienceTimeline from "@/components/ExperienceTimeline";
 import SkillsEcosystem from "@/components/SkillsEcosystem";
@@ -53,9 +52,6 @@ export default function Home() {
 
         {/* 04: How I Build / 7-Phase Creative Process & Architecture */}
         <CreativeProcessSection />
-
-        {/* 06: Visual Experiments / Visual Lab (WebGL OGL FlexCarousel) */}
-        <VisualLabSection />
 
         {/* GitHub Command Center & Live Repository Explorer */}
         <GithubCommandCenter />
