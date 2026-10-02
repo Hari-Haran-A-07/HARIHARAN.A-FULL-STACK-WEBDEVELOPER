@@ -743,7 +743,8 @@ export const projectData: ProjectItem[] = [
       "Scalable microservices service cluster",
     ],
     githubUrl: "https://github.com/Hari-Haran-A-07/Lux.raw",
-    badge: "Enterprise Architecture",
+    liveDemoUrl: "https://hari-haran-a-07.github.io/Lux.raw",
+    badge: "🟢 Live Production Platform",
     caseStudy: {
       overview:
         "LUX.RAW is a premium digital retail engine built for high-ticket merchandise where inventory precision and transaction trace auditability are mission-critical.",
@@ -783,6 +784,7 @@ export const projectData: ProjectItem[] = [
         "Flawless inventory state synchronization during stress tests",
       ],
       githubUrl: "https://github.com/Hari-Haran-A-07/Lux.raw",
+      liveDemoUrl: "https://hari-haran-a-07.github.io/Lux.raw",
     },
   },
   {
@@ -1616,7 +1618,7 @@ export const githubReposData: GithubRepoItem[] = [
     forks: 0,
     updatedAt: "2026-09-08T09:07:25Z",
     htmlUrl: "https://github.com/Hari-Haran-A-07/Lux.raw",
-    homepage: null,
+    homepage: "https://hari-haran-a-07.github.io/Lux.raw",
     category: "FULL STACK",
     topics: ["spring-boot", "react", "microservices", "ecommerce", "sql", "distributed-tracing"],
     isFeatured: true,
