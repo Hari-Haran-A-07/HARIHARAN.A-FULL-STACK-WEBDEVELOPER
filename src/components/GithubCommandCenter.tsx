@@ -353,11 +353,12 @@ export default function GithubCommandCenter() {
                       href={repo.homepage}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="p-1.5 rounded bg-white/5 text-neutral-300 hover:text-white hover:bg-[#A100FF] transition-all"
+                      className="px-2.5 py-1 rounded-md bg-emerald-500/20 border border-emerald-500/40 text-emerald-400 hover:bg-emerald-500 hover:text-black font-mono text-[11px] font-bold transition-all flex items-center gap-1"
                       title="Open Live Deployment"
                       aria-label={`${repo.name} Live Deployment`}
                     >
-                      <ExternalLink className="w-3.5 h-3.5" />
+                      <span>LIVE</span>
+                      <ExternalLink className="w-3 h-3" />
                     </a>
                   )}
 
@@ -375,6 +376,24 @@ export default function GithubCommandCenter() {
               </div>
             </motion.div>
           ))}
+        </div>
+
+        {/* Multi-Page Projects Directory Footer Banner */}
+        <div className="mt-12 p-6 rounded-2xl bg-[#111116] border border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 font-mono text-xs">
+          <div className="flex items-center gap-3 text-neutral-300 text-center sm:text-left">
+            <Sparkles className="w-4 h-4 text-[#A100FF] shrink-0 hidden sm:block" />
+            <span>
+              Explore all 25 public repositories and 21+ case studies in our dedicated multi-page explorer.
+            </span>
+          </div>
+
+          <a
+            href="/projects"
+            className="px-4 py-2 rounded-xl bg-[#A100FF] text-white font-bold hover:bg-[#8B00DC] transition-all flex items-center gap-1.5 shrink-0"
+          >
+            <span>OPEN PROJECTS DIRECTORY</span>
+            <ExternalLink className="w-3.5 h-3.5" />
+          </a>
         </div>
 
         {filteredRepos.length === 0 && (

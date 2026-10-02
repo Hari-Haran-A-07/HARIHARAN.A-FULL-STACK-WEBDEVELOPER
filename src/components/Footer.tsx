@@ -63,6 +63,24 @@ export default function Footer({ onOpenResume }: FooterProps) {
               NAVIGATION INDEX
             </span>
             <ul className="space-y-2">
+              <li>
+                <a
+                  href="/projects"
+                  className="hover:text-white transition-colors flex items-center gap-2 text-[#C084FC] font-bold"
+                >
+                  <span className="text-[#A100FF] text-[10px]">★</span>
+                  <span>PROJECTS HUB (21+)</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="/projects?filter=live"
+                  className="hover:text-white transition-colors flex items-center gap-2 text-emerald-400"
+                >
+                  <span className="text-emerald-400 text-[10px]">●</span>
+                  <span>LIVE DEMOS SANDBOX</span>
+                </a>
+              </li>
               {navItems.map((item) => (
                 <li key={item.label}>
                   <a

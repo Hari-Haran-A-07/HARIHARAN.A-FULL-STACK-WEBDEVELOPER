@@ -165,44 +165,51 @@ export default function Hero({ onOpenResume }: HeroProps) {
             {profileData.statement}
           </p>
 
-          {/* CTAs: VIEW WORK | GITHUB | LINKEDIN | DOWNLOAD RESUME */}
-          <div className="flex flex-wrap items-center gap-3.5 pt-2">
+          {/* CTAs: VIEW WORK | PROJECTS HUB | GITHUB | LINKEDIN | DOWNLOAD RESUME */}
+          <div className="flex flex-wrap items-center gap-3 pt-2">
+            <a
+              href="/projects"
+              className="group relative inline-flex items-center gap-2.5 px-6 py-3.5 bg-gradient-to-r from-[#A100FF] to-[#7C3AED] text-white font-mono font-bold text-xs sm:text-sm uppercase tracking-wider rounded-lg transition-all hover:shadow-[0_0_30px_rgba(161,0,255,0.45)] active:scale-[0.98]"
+            >
+              <Sparkles className="w-4 h-4 text-white" />
+              <span>PROJECTS &amp; LIVE DEMOS</span>
+              <ArrowUpRight className="w-4 h-4 opacity-80 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+            </a>
+
             <button
               onClick={() => handleScrollTo("projects")}
-              className="group relative inline-flex items-center gap-2.5 px-6 py-3.5 bg-white text-black font-mono font-bold text-xs sm:text-sm uppercase tracking-wider rounded-lg transition-all hover:bg-[#F7F7F5] hover:shadow-[0_0_30px_rgba(161,0,255,0.35)] active:scale-[0.98]"
+              className="group relative inline-flex items-center gap-2 px-5 py-3.5 bg-[#111116] border border-white/15 text-white font-mono font-bold text-xs sm:text-sm uppercase tracking-wider rounded-lg hover:border-[#A100FF] hover:bg-[#1A1A22] transition-all active:scale-[0.98]"
             >
-              <span>VIEW WORK</span>
-              <ArrowDown className="w-4 h-4 group-hover:translate-y-1 transition-transform text-[#7C3AED]" />
+              <span>FEATURED LAB</span>
+              <ArrowDown className="w-4 h-4 group-hover:translate-y-1 transition-transform text-[#A100FF]" />
             </button>
 
             <a
               href={profileData.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-2 px-5 py-3.5 bg-[#111116] border border-white/15 text-white font-mono font-bold text-xs sm:text-sm uppercase tracking-wider rounded-lg hover:border-[#A100FF] hover:bg-[#1A1A22] transition-all active:scale-[0.98]"
+              className="group inline-flex items-center gap-2 px-4 py-3.5 bg-[#111116] border border-white/15 text-white font-mono font-bold text-xs sm:text-sm uppercase tracking-wider rounded-lg hover:border-[#A100FF] hover:bg-[#1A1A22] transition-all active:scale-[0.98]"
             >
               <Github className="w-4 h-4 text-[#A100FF]" />
               <span>GITHUB</span>
-              <ArrowUpRight className="w-3.5 h-3.5 opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
             </a>
 
             <a
               href={profileData.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-2 px-5 py-3.5 bg-[#111116] border border-white/15 text-white font-mono font-bold text-xs sm:text-sm uppercase tracking-wider rounded-lg hover:border-[#A100FF] hover:bg-[#1A1A22] transition-all active:scale-[0.98]"
+              className="group inline-flex items-center gap-2 px-4 py-3.5 bg-[#111116] border border-white/15 text-white font-mono font-bold text-xs sm:text-sm uppercase tracking-wider rounded-lg hover:border-[#A100FF] hover:bg-[#1A1A22] transition-all active:scale-[0.98]"
             >
               <Linkedin className="w-4 h-4 text-[#38BDF8]" />
               <span>LINKEDIN</span>
-              <ArrowUpRight className="w-3.5 h-3.5 opacity-60 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
             </a>
 
             <button
               onClick={onOpenResume}
-              className="group inline-flex items-center gap-2 px-5 py-3.5 bg-[#111116] border border-white/15 text-neutral-200 font-mono font-bold text-xs sm:text-sm uppercase tracking-wider rounded-lg hover:border-[#A100FF] hover:text-white hover:bg-[#1A1A22] transition-all active:scale-[0.98]"
+              className="group inline-flex items-center gap-2 px-4 py-3.5 bg-[#111116] border border-white/15 text-neutral-200 font-mono font-bold text-xs sm:text-sm uppercase tracking-wider rounded-lg hover:border-[#A100FF] hover:text-white hover:bg-[#1A1A22] transition-all active:scale-[0.98]"
             >
               <Download className="w-4 h-4 text-[#A100FF] group-hover:-translate-y-0.5 transition-transform" />
-              <span>DOWNLOAD RESUME</span>
+              <span>RESUME</span>
             </button>
           </div>
 

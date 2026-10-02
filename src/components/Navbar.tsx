@@ -1,9 +1,21 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
+import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, ArrowUpRight, FileText, Sparkles, Terminal } from "lucide-react";
-import { navItems, profileData } from "@/data/portfolioData";
+import {
+  Menu,
+  X,
+  ArrowUpRight,
+  FileText,
+  Sparkles,
+  Terminal,
+  Layers,
+  Monitor,
+  ExternalLink,
+} from "lucide-react";
+import { profileData } from "@/data/portfolioData";
 import ElectricLogo from "@/components/ElectricLogo";
 
 interface NavbarProps {
@@ -11,6 +23,10 @@ interface NavbarProps {
 }
 
 export default function Navbar({ onOpenResume }: NavbarProps) {
+  const pathname = usePathname();
+  const router = useRouter();
+  const isHomePage = pathname === "/";
+
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("hero");
@@ -32,15 +48,27 @@ export default function Navbar({ onOpenResume }: NavbarProps) {
         setScrollProgress(progress);
       }
 
-      // Determine active section
-      const sections = navItems.map((item) => item.href.substring(1));
-      const scrollPos = window.scrollY + 240;
+      // Determine active section on home page
+      if (isHomePage) {
+        const sections = [
+          "hero",
+          "projects",
+          "disciplines",
+          "process",
+          "github",
+          "experience",
+          "skills",
+          "about",
+          "contact",
+        ];
+        const scrollPos = window.scrollY + 240;
 
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const el = document.getElementById(sections[i]);
-        if (el && el.offsetTop <= scrollPos) {
-          setActiveSection(sections[i]);
-          break;
+        for (let i = sections.length - 1; i >= 0; i--) {
+          const el = document.getElementById(sections[i]);
+          if (el && el.offsetTop <= scrollPos) {
+            setActiveSection(sections[i]);
+            break;
+          }
         }
       }
     };
@@ -48,23 +76,42 @@ export default function Navbar({ onOpenResume }: NavbarProps) {
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [isHomePage]);
 
   const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-    e.preventDefault();
     setMobileMenuOpen(false);
-    const targetId = href.substring(1);
-    const targetEl = document.getElementById(targetId);
-    if (targetEl) {
-      const headerOffset = 75;
-      const elementPosition = targetEl.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth",
-      });
+
+    if (href.startsWith("#")) {
+      if (isHomePage) {
+        e.preventDefault();
+        const targetId = href.substring(1);
+        const targetEl = document.getElementById(targetId);
+        if (targetEl) {
+          const headerOffset = 75;
+          const elementPosition = targetEl.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth",
+          });
+        }
+      } else {
+        // Navigate back to home page hash anchor
+        router.push(`/${href}`);
+      }
     }
   };
+
+  const navLinks = [
+    { number: "01", label: "HOME", href: "/#hero", isAnchor: true },
+    { number: "02", label: "PROJECTS", href: "/projects", isAnchor: false, isRoute: true },
+    { number: "03", label: "LIVE DEMOS", href: "/projects?filter=live", isAnchor: false, isLive: true },
+    { number: "04", label: "PROCESS", href: "/#process", isAnchor: true },
+    { number: "05", label: "GITHUB", href: "/#github", isAnchor: true },
+    { number: "06", label: "EXPERIENCE", href: "/#experience", isAnchor: true },
+    { number: "07", label: "SKILLS", href: "/#skills", isAnchor: true },
+    { number: "08", label: "CONTACT", href: "/#contact", isAnchor: true },
+  ];
 
   return (
     <>
@@ -78,16 +125,15 @@ export default function Navbar({ onOpenResume }: NavbarProps) {
 
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled
-            ? "bg-[#0A0A0A]/90 backdrop-blur-md border-b border-white/10 py-3 shadow-2xl shadow-black/80"
+          isScrolled || !isHomePage
+            ? "bg-[#0A0A0A]/92 backdrop-blur-md border-b border-white/10 py-3 shadow-2xl shadow-black/80"
             : "bg-transparent py-5"
         }`}
       >
         <div className="max-w-7xl mx-auto px-6 md:px-10 flex items-center justify-between">
           {/* Brand Monogram & Live Status */}
-          <a
-            href="#hero"
-            onClick={(e) => handleNavClick(e, "#hero")}
+          <Link
+            href="/"
             className="group flex items-center gap-3 text-white focus:outline-none rounded-sm"
           >
             <div className="relative w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-gradient-to-br from-[#16161E] via-[#0E0E14] to-[#07070A] border border-white/15 flex items-center justify-center overflow-hidden transition-all group-hover:border-[#A100FF] group-hover:shadow-[0_0_25px_rgba(161,0,255,0.45)]">
@@ -117,41 +163,83 @@ export default function Navbar({ onOpenResume }: NavbarProps) {
                 <span>AVAILABLE FOR OPPORTUNITIES</span>
               </div>
             </div>
-          </a>
+          </Link>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center gap-1 bg-[#111111]/80 border border-white/10 rounded-full px-4 py-1.5 backdrop-blur-md">
-            {navItems.map((item) => {
-              const isActive = activeSection === item.href.substring(1);
+          <nav className="hidden lg:flex items-center gap-1 bg-[#111111]/80 border border-white/10 rounded-full px-3 py-1.5 backdrop-blur-md">
+            {navLinks.map((item) => {
+              const isProjectsActive = pathname === "/projects" && item.href === "/projects";
+              const isAnchorActive = isHomePage && item.isAnchor && activeSection === item.href.replace("/#", "");
+              const isActive = isProjectsActive || isAnchorActive;
+
+              if (item.isAnchor) {
+                return (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    onClick={(e) => handleNavClick(e, item.href.replace("/", ""))}
+                    className={`relative px-3 py-1 text-xs font-mono tracking-wider transition-colors rounded-full uppercase flex items-center gap-1.5 ${
+                      isActive
+                        ? "text-white font-semibold"
+                        : "text-neutral-400 hover:text-white"
+                    }`}
+                  >
+                    {isActive && (
+                      <motion.div
+                        layoutId="activeNavIndicator"
+                        className="absolute inset-0 bg-gradient-to-r from-[#A100FF]/30 to-[#7C3AED]/20 border border-[#A100FF]/60 rounded-full"
+                        transition={{ type: "spring", stiffness: 350, damping: 30 }}
+                      />
+                    )}
+                    <span className="relative z-10 text-[10px] text-neutral-500 font-mono">
+                      {item.number}
+                    </span>
+                    <span className="relative z-10">{item.label}</span>
+                  </a>
+                );
+              }
+
               return (
-                <a
+                <Link
                   key={item.label}
                   href={item.href}
-                  onClick={(e) => handleNavClick(e, item.href)}
                   className={`relative px-3 py-1 text-xs font-mono tracking-wider transition-colors rounded-full uppercase flex items-center gap-1.5 ${
-                    isActive
+                    item.isLive
+                      ? "text-emerald-400 hover:text-emerald-300 font-semibold"
+                      : isProjectsActive
                       ? "text-white font-semibold"
-                      : "text-neutral-400 hover:text-white"
+                      : "text-neutral-300 hover:text-white"
                   }`}
                 >
-                  {isActive && (
+                  {isProjectsActive && (
                     <motion.div
                       layoutId="activeNavIndicator"
                       className="absolute inset-0 bg-gradient-to-r from-[#A100FF]/30 to-[#7C3AED]/20 border border-[#A100FF]/60 rounded-full"
                       transition={{ type: "spring", stiffness: 350, damping: 30 }}
                     />
                   )}
+                  {item.isLive && (
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse relative z-10" />
+                  )}
                   <span className="relative z-10 text-[10px] text-neutral-500 font-mono">
                     {item.number}
                   </span>
                   <span className="relative z-10">{item.label}</span>
-                </a>
+                </Link>
               );
             })}
           </nav>
 
           {/* Right Action CTA Group */}
           <div className="hidden sm:flex items-center gap-3">
+            <Link
+              href="/projects"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#181824] border border-[#A100FF]/40 text-[#C084FC] hover:bg-[#A100FF] hover:text-white font-mono text-xs font-bold transition-all shadow-[0_0_15px_rgba(161,0,255,0.2)]"
+            >
+              <Sparkles className="w-3.5 h-3.5" />
+              <span>PROJECTS (21+)</span>
+            </Link>
+
             <button
               onClick={onOpenResume}
               className="group relative inline-flex items-center gap-2 px-4 py-2 bg-white text-black text-xs font-mono font-bold tracking-wider uppercase rounded-full hover:bg-neutral-200 transition-all shadow-lg hover:shadow-[#A100FF]/30 hover:scale-[1.02] active:scale-[0.98]"
@@ -189,26 +277,65 @@ export default function Navbar({ onOpenResume }: NavbarProps) {
                 <span>NAVIGATION INDEX</span>
               </div>
 
-              {navItems.map((item, idx) => (
-                <motion.a
-                  key={item.label}
-                  href={item.href}
-                  onClick={(e) => handleNavClick(e, item.href)}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: idx * 0.04 }}
-                  className="flex items-center justify-between py-2.5 text-base font-heading font-bold tracking-wide text-neutral-300 hover:text-white border-b border-white/5 uppercase"
-                >
-                  <div className="flex items-center gap-3">
-                    <span className="font-mono text-xs text-[#A100FF]">{item.number}</span>
-                    <span>{item.label}</span>
-                  </div>
-                  <ArrowUpRight className="w-4 h-4 text-[#A100FF] opacity-60" />
-                </motion.a>
-              ))}
+              {navLinks.map((item, idx) => {
+                if (item.isAnchor) {
+                  return (
+                    <motion.a
+                      key={item.label}
+                      href={item.href}
+                      onClick={(e) => handleNavClick(e, item.href.replace("/", ""))}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: idx * 0.04 }}
+                      className="flex items-center justify-between py-2.5 text-base font-heading font-bold tracking-wide text-neutral-300 hover:text-white border-b border-white/5 uppercase"
+                    >
+                      <div className="flex items-center gap-3">
+                        <span className="font-mono text-xs text-[#A100FF]">{item.number}</span>
+                        <span>{item.label}</span>
+                      </div>
+                      <ArrowUpRight className="w-4 h-4 text-[#A100FF] opacity-60" />
+                    </motion.a>
+                  );
+                }
+
+                return (
+                  <motion.div
+                    key={item.label}
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: idx * 0.04 }}
+                  >
+                    <Link
+                      href={item.href}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className="flex items-center justify-between py-2.5 text-base font-heading font-bold tracking-wide text-neutral-300 hover:text-white border-b border-white/5 uppercase"
+                    >
+                      <div className="flex items-center gap-3">
+                        <span className="font-mono text-xs text-[#A100FF]">{item.number}</span>
+                        <span>{item.label}</span>
+                        {item.isLive && (
+                          <span className="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 text-[10px]">
+                            ACTIVE
+                          </span>
+                        )}
+                      </div>
+                      <ArrowUpRight className="w-4 h-4 text-[#A100FF] opacity-60" />
+                    </Link>
+                  </motion.div>
+                );
+              })}
             </div>
 
-            <div className="pt-6 border-t border-white/10 space-y-4">
+            <div className="pt-6 border-t border-white/10 space-y-3">
+              <Link
+                href="/projects"
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-full py-3 bg-[#1A1A26] border border-[#A100FF]/40 text-[#C084FC] font-mono font-bold text-xs uppercase tracking-wider rounded-lg flex items-center justify-center gap-2"
+              >
+                <Sparkles className="w-4 h-4" />
+                <span>EXPLORE ALL 21+ PROJECTS</span>
+              </Link>
+
               <button
                 onClick={() => {
                   setMobileMenuOpen(false);
@@ -217,7 +344,7 @@ export default function Navbar({ onOpenResume }: NavbarProps) {
                 className="w-full py-3.5 bg-gradient-to-r from-[#A100FF] to-[#7C3AED] text-white font-mono font-bold text-xs uppercase tracking-wider rounded-lg flex items-center justify-center gap-2 shadow-lg shadow-[#A100FF]/20"
               >
                 <FileText className="w-4 h-4" />
-                <span>VIEW & DOWNLOAD RESUME</span>
+                <span>VIEW &amp; DOWNLOAD RESUME</span>
               </button>
 
               <div className="flex justify-between text-[11px] font-mono text-neutral-500 pt-1">
